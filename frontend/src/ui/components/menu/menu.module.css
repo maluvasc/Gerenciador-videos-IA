@@ -1,0 +1,139 @@
+body {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .container {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .navbar {
+    width: 50px;
+    min-width: 40px;
+    height: 100vh;
+    background-color: #1E0E62;
+    position: fixed;
+    left: 0;
+    top: 0; /* Garante que o navbar esteja fixo ao topo */
+    transition: width .3s;
+    overflow: hidden;
+    z-index: 1000;
+    display: grid;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  
+  .navbar:hover, .navbar.expanded {
+    width: 240px;
+  }
+  
+  .topbar {
+    width: 100%;
+    height: 50px; /* Ajuste a altura conforme necessário */
+    background-color: #1E0E62;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+  }
+  
+  .topbarNav {
+    display: flex;
+    align-items: center;
+  }
+  
+  .topbarBtn {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 10px;
+    color: white;
+    text-decoration: none;
+    transition: background-color 0.3s;
+    width: 100%;
+  }
+  
+  .alertBtn {
+    margin-left: auto;
+  }
+  
+  .navbarNav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-top: 60px; /* Ajuste para o conteúdo do menu não sobrepor a topbar */
+  }
+  
+  .btn {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+    color: white;
+    background: none;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-decoration: none;
+  }
+  
+  .btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .text {
+    display: none;
+  }
+  
+  .showText {
+    margin-left: 5px;
+    opacity: 1;
+  }
+  
+  .hideText {
+    opacity: 0;
+  }
+  
+  .icon {
+    font-size: 20px;
+    margin: 0 5px;
+  }
+  
+  .active {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  /* Adiciona estilos para o retângulo se necessário, mas sem background */
+  .rectangle {
+    background: none; /* Ou defina a cor desejada */
+  }
+  
+  /* Novo estilo para o conteúdo principal */
+  .mainContent {
+    margin-left: 40px; /* Inicialmente, 40px para corresponder à largura mínima do navbar */
+    padding: 20px;
+    width: calc(100% - 40px);
+    transition: margin-left 0.3s, width 0.3s;
+  }
+  
+  .navbar.expanded + .mainContent {
+    margin-left: 200px; /* Largura do navbar expandido */
+    width: calc(100% - 200px);
+  }
+  
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Fundo semi-transparente */
+    z-index: 1; /* Certifique-se de que o overlay esteja acima do conteúdo principal */
+  }
