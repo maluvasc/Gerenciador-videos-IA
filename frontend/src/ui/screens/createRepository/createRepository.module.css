@@ -11,10 +11,28 @@
     max-width: 100vh;
     display: grid;
     grid-template-columns: 3fr 2fr;
-    gap: 5px;
+    grid-template-rows: auto auto auto; 
+    gap: 8px;
+    column-gap: 200px;
+    grid-template-areas:
+        "titulo imagem"
+        "linha imagem"
+        "nome imagem"
+        "descricao imagem"
+        "linha2 imagem"
+        "privado imagem"
+        "colaborador imagem"
+        "linha3 imagem"
+        "alerta imagem"
+        "botao imagem";
+}
+
+.h1CreateRepository {
+    grid-area: titulo;
 }
 
 .line {
+    grid-area: linha;
     margin: 0;
     grid-column: 1;
     width: 100%; 
@@ -22,21 +40,40 @@
     margin: 20px 0;
 }
 
-.nameInput {
+.line2 {
+    grid-area: linha2;
+    margin: 0;
     grid-column: 1;
+    width: 100%;
+    border-top: 1px solid #ccc;
+    margin: 20px 0;
+}
+
+.line3 {
+    grid-area: linha3;
+    margin: 0;
+    grid-column: 1;
+    width: 100%;
+    border-top: 1px solid #ccc;
+    margin: 20px 0;
+}
+
+.nameInput {
+    grid-area: nome;
     display: flex;
     flex-direction: column;
     gap: 5px;
 }
 
 .descriptionInput {
-    grid-column: 1;
+    grid-area: descricao;
     display: flex;
     flex-direction: column;
     gap: 5px;
 }
 
 .alertTextGroup {
+    grid-area: alerta;
     grid-column: 1;
     display: flex;
     align-items: center;
@@ -44,17 +81,21 @@
 }
 
 .buttonCreateRepository {
+    grid-area: botao;
     grid-column: 1;
     width: 200px;
     height: 35px;
     background-color: #45FF79;
     border: none;
     border-radius: 5px;
-    color: #F3F3F3;
-    font-size: large;
+    color: #333333;
+    font-size: medium;
+   text-transform: uppercase;
+    cursor: pointer;
 }
 
 .privateRepositoryInput {
+    grid-area: privado;
     grid-column: 1;
     display: flex;
     flex-direction: row;
@@ -91,3 +132,52 @@
     width: 30px;
     border-radius: 5px;
 }
+
+.collaboratorsInput {
+    grid-area: colaborador;
+    display: flex;
+    align-items: baseline;
+    gap: 20px;
+}
+
+.container {
+    grid-area: imagem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+.alinharColuna2 {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .uploadLabel {
+    cursor: pointer;
+    display: inline-block;
+  }
+  
+  .uploadBox {
+    width: 200px;
+    height: 200px;
+    background-color: #f4f4f4;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .uploadBox:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .uploadText {
+    font-size: 2rem;
+    color: #aaa;
+  }
+
+
+  
