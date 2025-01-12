@@ -1,5 +1,5 @@
 .mainNotificacoes {
-    margin-top: 10px;
+    margin-top: 10vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -50,7 +50,7 @@
     justify-content: center;
     align-items: center;
     margin-top: 10px;
-    width: 800px;
+    width: 820px;
     height: auto; 
     background-color: #FAFAFA;
     color: #333333;
