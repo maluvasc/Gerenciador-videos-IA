@@ -6,7 +6,9 @@ import Notificacoes from './ui/screens/notificacoes/notificacoes.js'
 import UpdateRepository from './ui/screens/updateRepository/updateRepository.js';
 import Configuracoes from './ui/screens/configuracoes/configuracoes.js';
 import Repository from './ui/screens/repository/repository.js';
- 
+import RepositoryTrash from './ui/screens/repositoryTrash/repositoryTrash.js';
+import UltimasAnalises from './ui/screens/ultimasAnalises/ultimasAnalises.js';
+
 function App() {
   return (
     <BrowserRouter>
@@ -17,6 +19,8 @@ function App() {
       <Route path="updateRepository" element={<UpdateRepository />} />
       <Route path="configuracoes" element={<Configuracoes />} />
       <Route path="repository" element={<Repository />} />
+      <Route path="repositoryTrash" element={<RepositoryTrash />} />
+      <Route path="ultimasAnalises" element={<UltimasAnalises />} />
     </Routes>
     </BrowserRouter>
   );

@@ -1,0 +1,82 @@
+.mainRepository {
+    margin-top: 10vh;
+    margin-left: 15vh;
+    gap: 10px;
+}
+
+.repoGrid {
+    display: flex;
+    gap: 50px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.repoFlex {
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+    margin-right: 10vh;
+}
+
+#imageRepository {
+    width: 70px;
+    height: 70px;
+}
+
+.repositoryName {
+    font-size: 1.2em;
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.repositoryDescription {
+    max-width: 400px;
+    height: auto;
+    font-size: 0.9em;
+    color: #666666;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.searchbar {
+    width: 100%;
+    max-width: 700px;
+    background-color: #d9d9d9;
+    border-radius: 5px;
+    height: 40px;
+    padding: 10px;
+    border: none;
+    align-self: center;
+}
+
+.line {
+    margin: 0;
+    border-top: 1px solid #ccc; 
+    margin: 20px 0;
+}
+
+.videoThumbnail {
+    width: 175px;
+    height: 100px;
+    background-color: #E8E8E8;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.videoFlex{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.column {
+    margin-left: 7vh;
+    display: grid;
+    column-gap: 5px;
+    justify-items: center;
+    grid-template-columns: repeat(6, 1fr);
+}
