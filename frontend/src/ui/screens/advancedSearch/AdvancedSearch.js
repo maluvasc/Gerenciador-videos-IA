@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './advancedSearch.module.css'; // Certifique-se de criar o arquivo CSS ou ajustar o caminho
 import Menu from '../../components/menu/menu';
-import { FiFilter, FiTrash2, FiSettings } from 'react-icons/fi';
+import { FiSliders, FiTrash2, FiSettings } from 'react-icons/fi';
 
 function AdvancedSearch() {
   return (
@@ -17,15 +17,11 @@ function AdvancedSearch() {
               className={styles.searchInput}
               placeholder="Digite sua busca aqui..."
             />
-            <button className={styles.iconButton}>
-              <FiFilter />
-            </button>
-            <button className={styles.iconButton}>
-              <FiTrash2 />
-            </button>
-            <button className={styles.iconButton}>
-              <FiSettings />
-            </button>
+            <div className={styles.repoFlex}>
+              <FiSliders style={{ width: '30px', height: '30px', cursor: 'pointer' }} />
+              <FiTrash2 style={{ width: '30px', height: '30px', cursor: 'pointer' }} />
+              <FiSettings style={{ width: '30px', height: '30px', cursor: 'pointer' }} />
+            </div>
           </div>
         </div>
       </div>
@@ -34,4 +30,3 @@ function AdvancedSearch() {
 }
 
 export default AdvancedSearch;
-
