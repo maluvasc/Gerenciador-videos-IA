@@ -6,7 +6,7 @@ import {
   FaHome,
   FaCog,
 } from 'react-icons/fa';
-import { FiShare, FiAlertTriangle, FiSearch, FiHelpCircle, FiRefreshCcw } from 'react-icons/fi'
+import { FiShare, FiAlertTriangle, FiSearch, FiHelpCircle, FiRefreshCcw, FiUpload } from 'react-icons/fi'
 import styles from './menu.module.css';
 
 function Menu() {
@@ -27,6 +27,7 @@ function Menu() {
     Configurações: <FaCog />,
     Notificações: <FiAlertTriangle />,
     'Últimas Análises': <FiRefreshCcw />, 
+    'Upload de Vídeo': <FiUpload />,
   };
   
   function handleOver() {

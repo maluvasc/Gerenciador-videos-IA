@@ -8,6 +8,7 @@ import Configuracoes from './ui/screens/configuracoes/configuracoes.js';
 import Repository from './ui/screens/repository/repository.js';
 import RepositoryTrash from './ui/screens/repositoryTrash/repositoryTrash.js';
 import UltimasAnalises from './ui/screens/ultimasAnalises/ultimasAnalises.js';
+import UploadVideo from './ui/screens/uploadVideo/uploadVideo';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
       <Route path="repository" element={<Repository />} />
       <Route path="repositoryTrash" element={<RepositoryTrash />} />
       <Route path="ultimasAnalises" element={<UltimasAnalises />} />
+      <Route path="/uploadVideo" element={<UploadVideo />} />
     </Routes>
     </BrowserRouter>
   );
