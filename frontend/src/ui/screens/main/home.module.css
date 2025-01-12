@@ -1,7 +1,60 @@
 .mainHome {
     margin-top: 10vh;
+    margin-left: 15vh;
+    gap: 10px;
+}
+
+.homeGrid {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
+    gap: 50px;
+    align-items: left;
+    justify-content: left;
+}
+
+.searchbar {
+    width: 40%;
+    max-width: 700px;
+    background-color: #d9d9d9;
+    border-radius: 5px;
+    height: 40px;
+    padding: 10px;
+    border: none;
+    align-self: center;
+}
+
+.buttonCriarRepositorio {
+    width: 50px;
+    cursor: pointer;
+    background-color: #1E0E62;
+    border-radius: 10px;
+    border: none;
+    color: #FFFFFF;
+    font-size: medium
+}
+
+.line {
+    margin: 0;
+    border-top: 1px solid #d9d9d9; 
+    margin: 20px 0;
+}
+
+.column {
+    margin-left: 20vh;
+    display: grid;
+    column-gap: 5px;
+    justify-items: left;
+    grid-template-columns: repeat(2, 1fr);
+    margin-right: 10cm;
+}
+
+.repositoryFlex {
+    box-shadow: 3px 3px #919191;
+    width: 400px;
+    border-radius: 5px;
+    background-color: #ececec;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    gap: 5px
 }
