@@ -13,6 +13,7 @@ import AdvancedSearch from './ui/screens/advancedSearch/AdvancedSearch';
 import VideoPage from './ui/screens/videoPage/videoPage';
 import Login from './ui/screens/login/login';
 import Cadastro from './ui/screens/cadastro/cadastro';
+import EditProfile from './ui/screens/editProfile/editProfile';
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
         <Route path="videoPage/:id" element={<VideoPage />} /> 
         <Route path="login" element={<Login />} />
         <Route path="cadastro" element={<Cadastro />} />
+        <Route path="editarPerfil" element={<EditProfile />} />
       </Routes>
     </BrowserRouter>
   );
