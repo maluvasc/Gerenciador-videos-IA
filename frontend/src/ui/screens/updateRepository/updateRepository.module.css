@@ -1,5 +1,6 @@
 .mainUpdateRepository {
-    height: 45em;
+    margin-top: 10vh;
+    margin-left: 15vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -8,12 +9,12 @@
 
 .scopeUpdateRepository {
     width: 100em;
-    max-width: 100vh;
+    max-width: none;
     display: grid;
     grid-template-columns: 3fr 2fr;
     grid-template-rows: auto auto auto; 
     gap: 20px;
-    column-gap: 200px;
+    column-gap: 100px;
     grid-template-areas:
         "titulo imagem"
         "linha imagem"
@@ -29,6 +30,7 @@
 .iconH1Flex {
     display: flex;
     gap: 20px;
+    align-items: center;
 }
 
 .iconBack {
@@ -80,6 +82,12 @@
     gap: 5px;
 }
 
+.gridButtons {
+    display: flex;
+    gap: 50px;
+    align-items: center;
+}
+
 .buttonUpdateRepository {
     grid-area: botao;
     width: 200px;
@@ -96,7 +104,7 @@
 .buttonDeletarRepository {
     grid-area: imagem;
     width: 200px;
-    height: min-content;
+    height: 35px;
     background-color: red;
     border: none;
     border-radius: 5px;

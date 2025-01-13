@@ -1,6 +1,6 @@
 .mainRepository {
     margin-top: 10vh;
-    margin-left: 10vh;
+    margin-left: 15vh;
     gap: 10px;
 }
 
@@ -41,7 +41,7 @@
 
 .searchbar {
     width: 100%;
-    max-width: 700px;
+    max-width: 400px;
     background-color: #d9d9d9;
     border-radius: 5px;
     height: 40px;
@@ -72,7 +72,8 @@
 }
 
 .column {
-    margin-left: 7vh;
+    margin-left: 15vh;
+    margin-right: 5vh;
     display: grid;
     column-gap: 5px;
     justify-items: center;

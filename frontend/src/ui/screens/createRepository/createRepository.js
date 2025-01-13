@@ -19,7 +19,7 @@ function CreateRepository() {
       <div className={styles.mainCreateRepository}>
         <div className={styles.scopeCreateRepository}>
             <div className={styles.iconH1Flex}>
-                <FiArrowLeftCircle className={styles.iconBack} style={{width: '50px', height: '50px', cursor: 'pointer'}} onClick={handleClickHome}/>
+                <FiArrowLeftCircle className={styles.iconBack} style={{width: '30px', height: '30px', cursor: 'pointer'}} onClick={handleClickHome}/>
                 <h1 className={styles.h1UpdateRepository}>Criar novo repositório</h1>
             </div>
             <div className={styles.line}></div>

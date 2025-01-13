@@ -25,12 +25,10 @@ function Repository() {
       <Menu />
       <div className={styles.mainRepository}>
         <div className={styles.repoGrid}>
-            <h5>Últimas Análises</h5>
             <input type='text' className={styles.searchbar} placeholder='Procure um vídeo...'></input>
             <div className={styles.repoFlex}>
                 <FiSliders style={{width: '30px', height: '30px', cursor: 'pointer'}}/>
                 <FiTrash2 style={{width: '30px', height: '30px', cursor: 'pointer'}}/>
-                <FiSettings style={{width: '30px', height: '30px', cursor: 'pointer'}}/>
             </div>
         </div>
       </div>

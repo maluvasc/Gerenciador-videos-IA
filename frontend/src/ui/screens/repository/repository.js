@@ -39,7 +39,7 @@ function Repository() {
       <Menu />
       <div className={styles.mainRepository}>
         <div className={styles.repoGrid}>
-        <FiArrowLeftCircle style={{width: '40px', height: '40px', cursor: 'pointer'}} onClick={handleClickHome}/>
+        <FiArrowLeftCircle style={{width: '30px', height: '30px', cursor: 'pointer'}} onClick={handleClickHome}/>
           <div className={styles.repoFlex}>
             <img src="https://static.vecteezy.com/system/resources/previews/018/765/757/original/user-profile-icon-in-flat-style-member-avatar-illustration-on-isolated-background-human-permission-sign-business-concept-vector.jpg" alt="" class="img-thumbnail" id={styles.imageRepository}></img>
                 <div className={styles.titleFlex}>

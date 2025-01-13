@@ -74,7 +74,8 @@
 }
 
 .column {
-    margin-left: 7vh;
+    margin-left: 15vh;
+    margin-right: 10vh;
     display: grid;
     column-gap: 5px;
     justify-items: center;

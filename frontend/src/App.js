@@ -14,6 +14,7 @@ import VideoPage from './ui/screens/videoPage/videoPage';
 import Login from './ui/screens/login/login';
 import Cadastro from './ui/screens/cadastro/cadastro';
 import EditProfile from './ui/screens/editProfile/editProfile';
+import Reports from './ui/screens/reports/reports';
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
         <Route path="login" element={<Login />} />
         <Route path="cadastro" element={<Cadastro />} />
         <Route path="editarPerfil" element={<EditProfile />} />
+        <Route path="relatorios" element={<Reports />} />
       </Routes>
     </BrowserRouter>
   );

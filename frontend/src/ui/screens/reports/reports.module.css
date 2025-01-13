@@ -26,8 +26,7 @@
 }
 
 .buttonCriarRepositorio {
-    width: 40px;
-    height: 40px;
+    width: 50px;
     cursor: pointer;
     background-color: #1E0E62;
     border-radius: 10px;
@@ -38,10 +37,9 @@
 
 .buttonAbrirRelatórios {
     width: 158px;
-    height: 40px;
     cursor: pointer;
     background-color: #1E0E62;
-    border-radius: 10px;
+    border-radius: 16px;
     border: none;
     color: #FFFFFF;
     font-size: medium
@@ -73,5 +71,12 @@
     flex-direction: column;
     padding: 10px;
     gap: 5px;
+}
+
+.downloadButton {
+    background-color: #1E0E62;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 5px;
     cursor: pointer;
 }

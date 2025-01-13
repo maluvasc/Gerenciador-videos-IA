@@ -1,5 +1,6 @@
 .mainCreateRepository {
-    height: 45em;
+    margin-left: 15vh;
+    margin-top: 10vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -8,12 +9,12 @@
 
 .scopeCreateRepository {
     width: 100em;
-    max-width: 100vh;
+    max-width: none;
     display: grid;
     grid-template-columns: 3fr 2fr;
     grid-template-rows: auto auto auto; 
     gap: 8px;
-    column-gap: 200px;
+    column-gap: 100px;
     grid-template-areas:
         "titulo imagem"
         "linha imagem"
@@ -30,6 +31,7 @@
 .iconH1Flex {
     display: flex;
     gap: 20px;
+    align-items: center;
 }
 
 .iconBack {
@@ -39,6 +41,7 @@
 
 .h1CreateRepository {
     grid-area: titulo;
+    white-space: nowrap;
 }
 
 .line {
