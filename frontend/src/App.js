@@ -11,12 +11,14 @@ import UltimasAnalises from './ui/screens/ultimasAnalises/ultimasAnalises';
 import UploadVideo from './ui/screens/uploadVideo/uploadVideo';
 import AdvancedSearch from './ui/screens/advancedSearch/AdvancedSearch';
 import VideoPage from './ui/screens/videoPage/videoPage';
+import Login from './ui/screens/login/login';
+import Cadastro from './ui/screens/cadastro/cadastro';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="home" element={<Home />} />
         <Route path="notificacoes" element={<Notificacoes />} />
         <Route path="createRepository" element={<CreateRepository />} />
         <Route path="updateRepository" element={<UpdateRepository />} />
@@ -27,6 +29,8 @@ function App() {
         <Route path="uploadVideo" element={<UploadVideo />} />
         <Route path="busca-avancada" element={<AdvancedSearch />} />
         <Route path="videoPage/:id" element={<VideoPage />} /> {/* Adicionando a rota para o VideoPage */}
+        <Route path="login" element={<Login />} />
+        <Route path="cadastro" element={<Cadastro />} />
       </Routes>
     </BrowserRouter>
   );
