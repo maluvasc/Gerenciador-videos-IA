@@ -2,15 +2,26 @@ import React, { useContext, useState } from 'react';
 import styles from './createRepository.module.css';
 import './../../../index.css';
 import { FiAlertCircle } from "react-icons/fi";
+import { FiArrowLeftCircle } from "react-icons/fi";
 import Menu from '../../components/menu/menu';
+import { useNavigate } from 'react-router-dom';
 
 function CreateRepository() {
+
+  const navigate = useNavigate();
+  const handleClickHome = () => {
+    navigate("/");
+  };
+
     return (
       <>
       <Menu />
       <div className={styles.mainCreateRepository}>
         <div className={styles.scopeCreateRepository}>
-            <h1 className={styles.h1CreateRepository}>Criar um novo repositório</h1>
+            <div className={styles.iconH1Flex}>
+                <FiArrowLeftCircle className={styles.iconBack} style={{width: '50px', height: '50px', cursor: 'pointer'}} onClick={handleClickHome}/>
+                <h1 className={styles.h1UpdateRepository}>Criar novo repositório</h1>
+            </div>
             <div className={styles.line}></div>
             <div className={styles.nameInput}>
               <label>Nome</label>

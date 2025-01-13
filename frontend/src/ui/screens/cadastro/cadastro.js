@@ -24,7 +24,7 @@ function Cadastro() {
             <label htmlFor="password">Confirmar Senha</label>
             <input type="password" id="password" placeholder="Repita a sua senha" />
           </div>
-          <Link to="/Home">
+          <Link to="/">
             <button type="submit" className={styles.button}>Cadastrar
             </button>
           </Link>

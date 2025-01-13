@@ -7,7 +7,7 @@ function Login() {
   return (
     <div className={styles.container}>
       <div className={styles.formContainer}>
-        <h1 className={styles.title}>Equipe Focus</h1>
+        <h1 className={styles.title}>Gerenciador de vídeos de IA</h1>
         <form>
           <div className={styles.inputGroup}>
             <label htmlFor="email">Email or Username</label>
@@ -17,7 +17,7 @@ function Login() {
             <label htmlFor="password">Password</label>
             <input type="password" id="password" placeholder="Your password" />
           </div>
-          <Link to="/Home">
+          <Link to="/">
             <button type="submit" className={styles.button}>Sign In</button>
           </Link>
         </form>

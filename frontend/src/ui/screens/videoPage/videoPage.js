@@ -5,27 +5,31 @@ import styles from './videoPage.module.css';
 
 function VideoPage() {
   const { id } = useParams();
-  const videoName = "Nome do Vídeo Exemplo";
+  const videoName = "Nome do Vídeo";
+  const videoDuration = "Duração do Vídeo"
 
   return (
     <>
       <Menu />
       <div className={styles.videoContainer}>
-        <h3>Detalhes do Vídeo {id}</h3>
+        <h3>Detalhes do Vídeo</h3>
+        <div className={styles.line}></div>
         <div className={styles.videoDetails}>
-          <div className={styles.videoThumbnail}>
-            <div className={styles.videoName}>{videoName}</div> {/* Nome do vídeo na miniatura */}
-          </div>
+          <div className={styles.videoThumbnail}></div>
           <div className={styles.videoInfo}>
-            <h4>Estatísticas do Vídeo</h4>
-            <p>Tem violência: Não</p>
-            <p>Violência contra mulher: Não</p>
-            <p>Duração da violência: 0s</p>
-            <p>Início da violência: --:--</p>
-            <p>Fim da violência: --:--</p>
+            <h5 className={styles.backgroundStatistics}>Estatísticas do Vídeo</h5>
+            <p><strong>Tem violência:</strong>{}</p>
+            <p><strong>Violência contra mulher:</strong>{}</p>
+            <p><strong>Duração da violência:</strong>{}</p>
+            <p><strong>Início da violência:</strong>{}</p>
+            <p><strong>Fim da violência:</strong>{}</p>
           </div>
         </div>
-        <button className={styles.deleteButton}>Deletar Vídeo</button>
+      </div>
+      <div className={styles.textFlex}>
+          <div className={styles.videoName}>{videoName}</div>
+          <div className={styles.videoDuration}>{videoDuration}</div>
+          <button className={styles.deleteButton}>Deletar Vídeo</button>
       </div>
     </>
   );

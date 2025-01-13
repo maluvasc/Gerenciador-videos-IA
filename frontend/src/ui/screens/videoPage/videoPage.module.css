@@ -1,5 +1,5 @@
 .videoContainer {
-  margin-top: 5vh;
+  margin-top: 3vh;
   margin-left: 13vh;
   gap: 20px;
   display: flex;
@@ -9,6 +9,28 @@
   overflow: hidden;
   padding: 3vh 5vw;
   width: 90%;
+}
+
+.line {
+  margin: 0;
+  border-top: 1px solid #ccc; 
+  margin: 20px 0;
+}
+
+.backgroundStatistics {
+  width: 500px;
+  height: 50px;
+  background: linear-gradient(to right, #0879FE, #002E63);
+  border-radius: 10px;
+  padding: 15px;
+  color: #FFF;
+}
+
+.textFlex {
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+  margin-left: 25vh;
 }
 
 .videoDetails {
@@ -30,17 +52,18 @@
 }
 
 .videoName {
-  position: absolute;
-  top: 1vh;
-  left: 2vw;
-  color: white;
-  font-size: 2vw; /* Ajustado para um tamanho mais moderado */
+  color: #000000;
   font-weight: bold;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+  font-size: larger;
   max-width: 90%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.videoDuration {
+  color: #252525;
+  max-width: 90%;
 }
 
 .videoInfo {
@@ -67,13 +90,13 @@
 }
 
 .deleteButton {
-  width: 18vw; /* Largura do botão ajustada */
-  height: 5vh;
+  width: 230px; /* Largura do botão ajustada */
+  height: 35px;
   background-color: red;
   border: none;
-  border-radius: 1vw;
+  border-radius: 5px;
   color: white;
-  font-size: 1.5vw;
+  font-size: medium;
   display: flex;
   align-items: center;
   justify-content: center;

@@ -26,6 +26,16 @@
         "botao imagem";
 }
 
+.iconH1Flex {
+    display: flex;
+    gap: 20px;
+}
+
+.iconBack {
+    grid-area: titulo;
+    cursor: pointer;
+}
+
 .h1UpdateRepository {
     grid-area: titulo;
 }
@@ -72,7 +82,6 @@
 
 .buttonUpdateRepository {
     grid-area: botao;
-    grid-column: 1;
     width: 200px;
     height: 35px;
     background-color: #45FF79;
@@ -80,7 +89,20 @@
     border-radius: 5px;
     color: #333333;
     font-size: medium;
-   text-transform: uppercase;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.buttonDeletarRepository {
+    grid-area: imagem;
+    width: 200px;
+    height: min-content;
+    background-color: red;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: medium;
+    text-transform: uppercase;
     cursor: pointer;
 }
 

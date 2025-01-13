@@ -20,7 +20,6 @@ function Menu() {
   const icons = {
     'Upload Manual': <FiShare />,
     'Busca Avançada': <FiSearch />,
-    'Suporte': <FiHelpCircle />,
     Sair: <FaSignOutAlt />,
     Home: <FaHome />,
     'Página Inicial': <FaHome />,

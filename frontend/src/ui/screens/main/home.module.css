@@ -11,6 +11,10 @@
     justify-content: left;
 }
 
+.testDiv {
+    background-color: #F9F9F9;
+}
+
 .searchbar {
     width: 40%;
     max-width: 700px;
@@ -32,6 +36,16 @@
     font-size: medium
 }
 
+.buttonAbrirRelatórios {
+    width: 158px;
+    cursor: pointer;
+    background-color: #1E0E62;
+    border-radius: 16px;
+    border: none;
+    color: #FFFFFF;
+    font-size: medium
+}
+
 .line {
     margin: 0;
     border-top: 1px solid #d9d9d9; 
@@ -41,9 +55,9 @@
 .column {
     margin-left: 20vh;
     display: grid;
-    column-gap: 5px;
+    column-gap: 20px;
     justify-items: left;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     margin-right: 10cm;
 }
 
@@ -51,10 +65,11 @@
     box-shadow: 3px 3px #919191;
     width: 400px;
     border-radius: 5px;
-    background-color: #ececec;
+    background-color: #F9F9F9;
     margin-bottom: 20px;
     display: flex;
     flex-direction: column;
     padding: 10px;
-    gap: 5px
+    gap: 5px;
+    cursor: pointer;
 }

@@ -2,6 +2,8 @@ import React from 'react'
 import Menu from '../../components/menu/menu';
 import styles from './repositoryTrash.module.css';
 import { FiSliders } from "react-icons/fi";
+import { useNavigate } from 'react-router-dom';
+import { FiArrowLeftCircle } from 'react-icons/fi';
 
 function Cards({ videoName, isAnalised }) {
   return (
@@ -18,11 +20,18 @@ function Cards({ videoName, isAnalised }) {
 };
 
 function RepositoryTrash() {
+
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate("/repository");
+  };
+
     return (
       <>
       <Menu />
       <div className={styles.mainRepository}>
         <div className={styles.repoGrid}>
+        <FiArrowLeftCircle className={styles.iconBack} style={{width: '50px', height: '50px', cursor: 'pointer'}} onClick={handleClick}/>
           <div className={styles.repoFlex}>
             <img src="https://static.vecteezy.com/system/resources/previews/018/765/757/original/user-profile-icon-in-flat-style-member-avatar-illustration-on-isolated-background-human-permission-sign-business-concept-vector.jpg" alt="" class="img-thumbnail" id={styles.imageRepository}></img>
                 <div className={styles.titleFlex}>

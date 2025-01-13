@@ -1,8 +1,9 @@
 .mainAdvancedSearch {
+    margin-top: 5vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-left: 240px; /* Ajuste para o menu expandido */
+    margin-left: 15vh; /* Ajuste para o menu expandido */
     padding: 20px;
   }
   

@@ -27,6 +27,16 @@
         "botao imagem";
 }
 
+.iconH1Flex {
+    display: flex;
+    gap: 20px;
+}
+
+.iconBack {
+    grid-area: titulo;
+    cursor: pointer;
+}
+
 .h1CreateRepository {
     grid-area: titulo;
 }
@@ -99,7 +109,7 @@
     grid-column: 1;
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: flex-start;
     gap: 10px;
 }
 

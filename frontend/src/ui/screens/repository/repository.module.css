@@ -1,12 +1,12 @@
 .mainRepository {
     margin-top: 10vh;
-    margin-left: 15vh;
+    margin-left: 10vh;
     gap: 10px;
 }
 
 .repoGrid {
     display: flex;
-    gap: 50px;
+    gap: 30px;
     align-items: center;
 }
 

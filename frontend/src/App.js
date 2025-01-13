@@ -18,8 +18,8 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="home" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Home />} />
         <Route path="notificacoes" element={<Notificacoes />} />
         <Route path="createRepository" element={<CreateRepository />} />
         <Route path="updateRepository" element={<UpdateRepository />} />
@@ -29,7 +29,7 @@ function App() {
         <Route path="ultimasAnalises" element={<UltimasAnalises />} />
         <Route path="uploadVideo" element={<UploadVideo />} />
         <Route path="busca-avancada" element={<AdvancedSearch />} />
-        <Route path="videoPage/:id" element={<VideoPage />} /> {/* Adicionando a rota para o VideoPage */}
+        <Route path="videoPage/:id" element={<VideoPage />} /> 
         <Route path="login" element={<Login />} />
         <Route path="cadastro" element={<Cadastro />} />
       </Routes>
