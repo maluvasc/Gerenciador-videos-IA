@@ -2,7 +2,7 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
-
+# Arquivo de gerenciamento do Django, usado para executar comandos (migrar banco, iniciar servidor, criar apps, etc.).
 
 def main():
     """Run administrative tasks."""
@@ -20,3 +20,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+    

@@ -1,0 +1,1 @@
+# Indica que a pasta é um pacote Python.
