@@ -5,6 +5,7 @@ from rest_framework import status
 from .models import Video
 from .serializers import VideoSerializer
 from django.http import HttpResponse
+
 # Onde você implementa a lógica das páginas, APIs ou funcionalidades da aplicação.
 class VideoListView(APIView):
     def get(self, request):

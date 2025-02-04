@@ -3,6 +3,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from app import views
+
 # Roteamento central do projeto. Ele conecta rotas de aplicativos (como App/urls.py) ao projeto principal.
 
 urlpatterns = [
