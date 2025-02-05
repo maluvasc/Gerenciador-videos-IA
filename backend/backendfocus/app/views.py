@@ -5,6 +5,8 @@ from rest_framework import status
 from .models import Video
 from .serializers import VideoSerializer
 from django.http import HttpResponse
+from django.contrib.auth.forms import UserCreationForm
+from django.shortcuts import render
 
 # Onde você implementa a lógica das páginas, APIs ou funcionalidades da aplicação.
 class VideoListView(APIView):
@@ -25,3 +27,7 @@ class VideoUploadView(APIView):
 
 def home(request):
     return HttpResponse("Bem-vindo ao Gerenciador de Vídeos!")
+
+def cadastro(request):
+    form = UserCreationForm()
+    return render(request, 'cadastro.html', {'form': form})
