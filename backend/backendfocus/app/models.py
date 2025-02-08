@@ -17,7 +17,7 @@ class Video(models.Model):
     file = models.FileField("arquivo de video", upload_to='videos/')
     data = models.DateTimeField("data de upload", auto_now_add=True)
     analise = models.ForeignKey('AnaliseVideo', on_delete=models.CASCADE, null=True)
-    autor = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    autor = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='videos')
 
     def __str__(self):
         return self.titulo
@@ -25,7 +25,7 @@ class Video(models.Model):
 class Repositorio(models.Model):
     nome = models.CharField("nome do repositório", max_length=100)
     descricao = models.CharField(max_length=255, blank=True)
-    criador = models.ForeignKey(User, on_delete=models.CASCADE)
+    criador = models.ForeignKey(User, on_delete=models.CASCADE, related_name="Repositorios")
     privado = models.BooleanField(default=False)
     colaboradores = models.ManyToManyField(User, related_name='colaboradores', blank=True)
     imagem = models.ImageField("imagem do repositório", upload_to='imagens/', null=True, blank=True)

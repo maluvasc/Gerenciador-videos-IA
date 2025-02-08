@@ -14,7 +14,7 @@ function Menu() {
   const [expanded, setExpanded] = useState(false);
 
   const handleLogout = () => {
-    navigate('/login');
+    navigate('/logout');
   };
 
   const icons = {
