@@ -81,3 +81,13 @@
     text-decoration: underline;
   }
   
+  .errorInput {
+    border: 1px solid red;
+  }
+  
+  .errorText {
+    color: red;
+    font-size: 0.9rem;
+    margin-top: 4px;
+  }
+  
