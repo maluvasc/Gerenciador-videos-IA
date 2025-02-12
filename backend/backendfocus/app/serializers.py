@@ -19,10 +19,10 @@ class UserSerializer(serializers.ModelSerializer):
 class VideoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Video
-        fields = ['id', 'filename', 'file']
+        fields = ['id', 'titulo', 'descricao', 'file', 'data', 'analise', 'autor', 'repositorio']
 
 class RepositorioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Repositorio
-        fields = ['id', 'nome', 'descricao', 'criador', 'privado', 'colaboradores', 'imagem']
+        fields = ['id', 'nome', 'descricao', 'criador', 'privado', 'imagem']
         extra_kwargs = {'criador': {'read_only': True}}

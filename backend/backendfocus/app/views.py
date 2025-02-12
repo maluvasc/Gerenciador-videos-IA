@@ -18,13 +18,12 @@ class RepositorioListCreate(generics.ListCreateAPIView):
     permission_classes = [IsAuthenticated]
 
     def perform_create(self, serializer):
-        logging.info(f"Dados recebidos: {self.request.data}")
         serializer.save(criador=self.request.user)
 
 class RepositorioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Repositorio
-        fields = ['nome', 'descricao', 'privado', 'colaboradores', 'imagem']     
+        fields = ['nome', 'descricao', 'privado', 'imagem']     
 
 class RepositorioDelete(generics.DestroyAPIView):
     serializer_class = RepositorioSerializer

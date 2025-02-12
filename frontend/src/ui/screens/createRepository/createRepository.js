@@ -8,11 +8,11 @@ import { useNavigate } from "react-router-dom";
 import api from "../../../api";
 
 function CreateRepository() {
-  const [nome, setNome] = useState(""); // Estado que armazena o nome de repositório
-  const [descricao, setDescricao] = useState(""); // Estado que armazena a descrição do repositório
-  const [privado, setPrivado] = useState(""); // Estado que armazena se o repositório é privado
-  const [colaboradores, setColaboradores] = useState(""); // Estado que armazena se tem colaboradores - em breve
-  const [imagem, setImagem] = useState(null);
+  const [repositoryName, setRepositoryName] = useState(""); // Estado que armazena o nome de repositório
+  const [repositoryDescription, setRepositoryDescription] = useState(""); // Estado que armazena a descrição do repositório
+  const [repositoryPrivate, setRepositoryPrivate] = useState(""); // Estado que armazena se o repositório é privado
+  //const [collaborators, setCollaborators] = useState(""); // Estado que armazena se tem colaboradores - em breve
+  const [file, setFile] = useState(null);
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false); // Estado que armazena se o formulário está sendo submetido
 
@@ -25,48 +25,44 @@ function CreateRepository() {
     setLoading(true);
     e.preventDefault();
 
-    if (nome.length > 30) {
+    if (repositoryName.length > 30) {
       setErrors((prev) => ({
         ...prev,
-        nome: "Repository's name is longer than allowed.",
+        repositoryName: "Repository's name is longer than allowed.",
       }));
       setLoading(false);
       return;
     }
 
-    if (descricao.length > 50) {
+    if (repositoryName.length > 50) {
       setErrors((prev) => ({
         ...prev,
-        descricao: "Repository's description is longer than allowed.",
+        repositoryName: "Repository's description is longer than allowed.",
       }));
       setLoading(false);
       return;
     }
 
     try {
+      // Criar um objeto FormData
       const formData = new FormData();
-      formData.append("nome", nome); // Correspondendo ao campo 'nome' no modelo
-      formData.append("descricao", descricao); // Correspondendo ao campo 'descricao' no modelo
-      formData.append("privado", privado); // Correspondendo ao campo 'privado' no modelo
-      formData.append("colaboradores", colaboradores); // Correspondendo ao campo 'colaboradores' no modelo
-      if (imagem) {
-        formData.append("imagem", imagem); // Correspondendo ao campo 'imagem' no modelo
+      formData.append("nome", repositoryName);
+      formData.append("descricao", repositoryDescription);
+      formData.append("privado", repositoryPrivate);
+     // formData.append("collaborators", collaborators);
+      if (file) {
+        formData.append("imagem", file); // Adiciona o arquivo ao FormData
       }
 
-      // Obter o token de autenticação do localStorage
-      const token = localStorage.getItem("access");
-      if (!token) {
-        console.log("Token not found");
-        return;
+      // Log dos dados que estão sendo enviados
+      for (let [key, value] of formData.entries()) {
+        console.log(key, value);
       }
-
-      console.log(token);
 
       // Enviar a requisição com FormData
       const response = await api.post("app/repository/register/", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${token}`,
         },
       });
 
@@ -106,46 +102,46 @@ function CreateRepository() {
             <label>Nome</label>
             <input
               type="text"
-              id="nome"
+              id="repositoryName"
               placeholder="Enter your Repository's Name"
-              value={nome}
+              value={repositoryName}
               onChange={(e) => {
-                setNome(e.target.value);
-                setErrors((prev) => ({ ...prev, nome: "" }));
+                setRepositoryName(e.target.value);
+                setErrors((prev) => ({ ...prev, repositoryName: "" }));
               }}
-              className={errors.nome ? styles.errorInput : ""}
+              className={errors.repositoryName ? styles.errorInput : ""}
             />
           </div>
           <div className={styles.descriptionInput}>
             <label>Descrição</label>
             <input
               type="textarea"
-              id="descricao"
+              id="repositoryDescription"
               placeholder="Enter your Repository's Description"
-              value={descricao}
+              value={repositoryDescription}
               onChange={(e) => {
-                setDescricao(e.target.value);
-                setErrors((prev) => ({ ...prev, descricao: "" }));
+                setRepositoryDescription(e.target.value);
+                setErrors((prev) => ({ ...prev, repositoryDescription: "" }));
               }}
-              className={errors.descricao ? styles.errorInput : ""}
+              className={errors.repositoryDescription ? styles.errorInput : ""}
             />
           </div>
           <div className={styles.line2}></div>
           <div className={styles.privateRepositoryInput}>
             <input
               type="checkbox"
-              id="privado"
-              value={privado}
+              id="repositoryPrivate"
+              value={repositoryPrivate}
               className={styles.inputInformationCheckbox}
               onChange={(e) => {
-                setPrivado(e.target.value);
+                setRepositoryPrivate(e.target.value);
               }}
             />
             <p>Repositório privado?</p>
           </div>
           <div className={styles.collaboratorsInput}>
             <label>Colaboradores</label>
-            <select name="collaborators" id="colaboradores">
+            <select name="collaborators" id="collaborators">
               <option>Escolha colaboradores</option>
             </select>
           </div>
@@ -173,9 +169,9 @@ function CreateRepository() {
               </label>
               <input
                 type="file"
-                id="imagem"
+                id="fileUpload"
                 className={styles.uploadInput}
-                onChange={(e) => setImagem(e.target.files[0])}
+                onChange={(e) => setFile(e.target.files[0])}
               />
             </div>
           </div>
