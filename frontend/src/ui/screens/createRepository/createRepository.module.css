@@ -1,196 +1,203 @@
 .mainCreateRepository {
-    margin-left: 15vh;
-    margin-top: 10vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
+  margin-left: 15vh;
+  margin-top: 10vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
 }
 
 .scopeCreateRepository {
-    width: 100em;
-    max-width: none;
-    display: grid;
-    grid-template-columns: 3fr 2fr;
-    grid-template-rows: auto auto auto; 
-    gap: 8px;
-    column-gap: 100px;
-    grid-template-areas:
-        "titulo imagem"
-        "linha imagem"
-        "nome imagem"
-        "descricao imagem"
-        "linha2 imagem"
-        "privado imagem"
-        "colaborador imagem"
-        "linha3 imagem"
-        "alerta imagem"
-        "botao imagem";
+  width: 100em;
+  max-width: none;
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  grid-template-rows: auto auto auto;
+  gap: 8px;
+  column-gap: 100px;
+  grid-template-areas:
+    "titulo imagem"
+    "linha imagem"
+    "nome imagem"
+    "descricao imagem"
+    "linha2 imagem"
+    "privado imagem"
+    "colaborador imagem"
+    "linha3 imagem"
+    "alerta imagem"
+    "botao imagem";
 }
 
 .iconH1Flex {
-    display: flex;
-    gap: 20px;
-    align-items: center;
+  display: flex;
+  gap: 20px;
+  align-items: center;
 }
 
 .iconBack {
-    grid-area: titulo;
-    cursor: pointer;
+  grid-area: titulo;
+  cursor: pointer;
 }
 
 .h1CreateRepository {
-    grid-area: titulo;
-    white-space: nowrap;
+  grid-area: titulo;
+  white-space: nowrap;
 }
 
 .line {
-    grid-area: linha;
-    margin: 0;
-    grid-column: 1;
-    width: 100%; 
-    border-top: 1px solid #ccc; 
-    margin: 20px 0;
+  grid-area: linha;
+  margin: 0;
+  grid-column: 1;
+  width: 100%;
+  border-top: 1px solid #ccc;
+  margin: 20px 0;
 }
 
 .line2 {
-    grid-area: linha2;
-    margin: 0;
-    grid-column: 1;
-    width: 100%;
-    border-top: 1px solid #ccc;
-    margin: 20px 0;
+  grid-area: linha2;
+  margin: 0;
+  grid-column: 1;
+  width: 100%;
+  border-top: 1px solid #ccc;
+  margin: 20px 0;
 }
 
 .line3 {
-    grid-area: linha3;
-    margin: 0;
-    grid-column: 1;
-    width: 100%;
-    border-top: 1px solid #ccc;
-    margin: 20px 0;
+  grid-area: linha3;
+  margin: 0;
+  grid-column: 1;
+  width: 100%;
+  border-top: 1px solid #ccc;
+  margin: 20px 0;
 }
 
 .nameInput {
-    grid-area: nome;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
+  grid-area: nome;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 
 .descriptionInput {
-    grid-area: descricao;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
+  grid-area: descricao;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 
 .alertTextGroup {
-    grid-area: alerta;
-    grid-column: 1;
-    display: flex;
-    align-items: center;
-    gap: 5px;
+  grid-area: alerta;
+  grid-column: 1;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
 .buttonCreateRepository {
-    grid-area: botao;
-    grid-column: 1;
-    width: 200px;
-    height: 35px;
-    background-color: #45FF79;
-    border: none;
-    border-radius: 5px;
-    color: #333333;
-    font-size: medium;
-   text-transform: uppercase;
-    cursor: pointer;
+  grid-area: botao;
+  grid-column: 1;
+  width: 200px;
+  height: 35px;
+  background-color: #45ff79;
+  border: none;
+  border-radius: 5px;
+  color: #333333;
+  font-size: medium;
+  text-transform: uppercase;
+  cursor: pointer;
 }
 
 .privateRepositoryInput {
-    grid-area: privado;
-    grid-column: 1;
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    gap: 10px;
+  grid-area: privado;
+  grid-column: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 10px;
 }
 
 .repositoryImageUpload {
-    margin-left: 50px;
-    grid-column: 2;
-    grid-row-start: 3;
+  margin-left: 50px;
+  grid-column: 2;
+  grid-row-start: 3;
 }
 
 .inputInformationName {
-    background-color: #D9D9D9;
-    border: none;
-    height: 30px;
-    width: 246px;
-    border-radius: 5px;
+  background-color: #d9d9d9;
+  border: none;
+  height: 30px;
+  width: 246px;
+  border-radius: 5px;
 }
 
 .inputInformationDescription {
-    background-color: #D9D9D9;
-    border: none;
-    height: 30px;
-    width: 420px;
-    border-radius: 5px;
+  background-color: #d9d9d9;
+  border: none;
+  height: 30px;
+  width: 420px;
+  border-radius: 5px;
 }
 
 .inputInformationCheckbox {
-    background-color: #D9D9D9;
-    border: none;
-    height: 30px;
-    width: 30px;
-    border-radius: 5px;
+  background-color: #d9d9d9;
+  border: none;
+  height: 30px;
+  width: 30px;
+  border-radius: 5px;
 }
 
 .collaboratorsInput {
-    grid-area: colaborador;
-    display: flex;
-    align-items: baseline;
-    gap: 20px;
+  grid-area: colaborador;
+  display: flex;
+  align-items: baseline;
+  gap: 20px;
 }
 
 .container {
-    grid-area: imagem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+  grid-area: imagem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 .alinharColuna2 {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-  
-  .uploadLabel {
-    cursor: pointer;
-    display: inline-block;
-  }
-  
-  .uploadBox {
-    width: 200px;
-    height: 200px;
-    background-color: #f4f4f4;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: box-shadow 0.3s ease;
-  }
-  
-  .uploadBox:hover {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .uploadText {
-    font-size: 2rem;
-    color: #aaa;
-  }
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
 
+.uploadLabel {
+  cursor: pointer;
+  display: inline-block;
+}
 
-  
+.uploadBox {
+  width: 200px;
+  height: 200px;
+  background-color: #f4f4f4;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: box-shadow 0.3s ease;
+}
+
+.uploadBox:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.uploadText {
+  font-size: 2rem;
+  color: #aaa;
+}
+
+.errorInput {
+  border: 1px solid red;
+}
+
+.errorText {
+  color: red;
+  font-size: 0.9rem;
+  margin-top: 4px;
+}
