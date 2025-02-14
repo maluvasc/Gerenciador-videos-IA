@@ -1,3 +1,9 @@
-from django.contrib import admin
 # Configura o painel administrativo do Django. Você pode registrar seus modelos aqui.
-# Register your models here.
+
+from django.contrib import admin
+from .models import Repositorio, Video, AnaliseVideo, Notificacao
+
+admin.site.register(Repositorio)
+admin.site.register(Video)
+admin.site.register(AnaliseVideo)
+admin.site.register(Notificacao)

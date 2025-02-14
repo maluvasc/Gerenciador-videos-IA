@@ -1,14 +1,15 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react';
 import Menu from '../../components/menu/menu';
 import styles from './home.module.css';
 import { RiAddLargeFill } from "react-icons/ri";
 import { useNavigate } from 'react-router-dom';
+import api from "../../../api";
 
-function Cards({ repositoryName, repositoryDescription }){
-
+function Cards({ repositoryId, repositoryName, repositoryDescription }){
   const navigate = useNavigate();
+
   const handleClick = () => {
-    navigate("/repository");
+    navigate(`/repository/${repositoryId}/`);
   };
 
   return (
@@ -24,6 +25,7 @@ function Cards({ repositoryName, repositoryDescription }){
 }
 
 function Home() {
+  const [repositories, setRepositories] = useState([])
 
   const navigate = useNavigate();
   const handleClick = () => {
@@ -32,6 +34,23 @@ function Home() {
   const handleClickReports = () => {
     navigate("/relatorios");
   };
+
+  useEffect(() => {
+    const fetchRepositories = async () => {
+      try {
+        const response = await api.get('/app/repository/user/', {
+          headers: {
+            'Authorization': `Token ${localStorage.getItem('token')}`
+          }
+        })
+        setRepositories(response.data)
+      } catch (error) {
+        alert(error)
+      } 
+    }
+
+    fetchRepositories();
+  }, [])
 
   return (
       <>
@@ -48,15 +67,16 @@ function Home() {
       </div>
         <div className={styles.line}></div>
         <div className={styles.column}>
-          <Cards repositoryName={"Nome do Repositório"} repositoryDescription={"Descrição"}/>
-          <Cards repositoryName={"Nome do Repositório"} repositoryDescription={"Descrição"}/>
-          <Cards repositoryName={"Nome do Repositório"} repositoryDescription={"Descrição"}/>
-          <Cards repositoryName={"Nome do Repositório"} repositoryDescription={"Descrição"}/>
-          <Cards repositoryName={"Nome do Repositório"} repositoryDescription={"Descrição"}/>
-          <Cards repositoryName={"Nome do Repositório"} repositoryDescription={"Descrição"}/>   
+          {repositories.map((repo) => (
+            <Cards
+              repositoryId={repo.id}
+              repositoryName={repo.nome}
+              repositoryDescription={repo.descricao}
+            />
+          ))}  
         </div>
       </>
     );
   }
   
-  export default Home;
+export default Home;

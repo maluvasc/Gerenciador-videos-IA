@@ -11,7 +11,7 @@ function CreateRepository() {
   const [repositoryName, setRepositoryName] = useState(""); // Estado que armazena o nome de repositório
   const [repositoryDescription, setRepositoryDescription] = useState(""); // Estado que armazena a descrição do repositório
   const [repositoryPrivate, setRepositoryPrivate] = useState(""); // Estado que armazena se o repositório é privado
-  //const [collaborators, setCollaborators] = useState(""); // Estado que armazena se tem colaboradores - em breve
+  const [collaborators, setCollaborators] = useState([]); // Estado que armazena se tem colaboradores - em breve
   const [file, setFile] = useState(null);
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false); // Estado que armazena se o formulário está sendo submetido
@@ -49,7 +49,7 @@ function CreateRepository() {
       formData.append("nome", repositoryName);
       formData.append("descricao", repositoryDescription);
       formData.append("privado", repositoryPrivate);
-     // formData.append("collaborators", collaborators);
+      formData.append("collaborators", collaborators);
       if (file) {
         formData.append("imagem", file); // Adiciona o arquivo ao FormData
       }
@@ -100,24 +100,24 @@ function CreateRepository() {
           <div className={styles.line}></div>
           <div className={styles.nameInput}>
             <label>Nome</label>
-            <input
-              type="text"
-              id="repositoryName"
-              placeholder="Enter your Repository's Name"
-              value={repositoryName}
-              onChange={(e) => {
-                setRepositoryName(e.target.value);
-                setErrors((prev) => ({ ...prev, repositoryName: "" }));
-              }}
-              className={errors.repositoryName ? styles.errorInput : ""}
-            />
+              <input
+                type="text"
+                id="repositoryName"
+                placeholder="Digite o nome do repositório"
+                value={repositoryName}
+                onChange={(e) => {
+                  setRepositoryName(e.target.value);
+                  setErrors((prev) => ({ ...prev, repositoryName: "" }));
+                }}
+                className={errors.repositoryName ? styles.errorInput : ""}
+              />
           </div>
           <div className={styles.descriptionInput}>
             <label>Descrição</label>
             <input
               type="textarea"
               id="repositoryDescription"
-              placeholder="Enter your Repository's Description"
+              placeholder="Digite a descrição"
               value={repositoryDescription}
               onChange={(e) => {
                 setRepositoryDescription(e.target.value);
@@ -134,7 +134,7 @@ function CreateRepository() {
               value={repositoryPrivate}
               className={styles.inputInformationCheckbox}
               onChange={(e) => {
-                setRepositoryPrivate(e.target.value);
+                setRepositoryPrivate(e.target.checked);
               }}
             />
             <p>Repositório privado?</p>

@@ -7,4 +7,6 @@ urlpatterns = [
     path('upload/', views.VideoUploadView.as_view(), name='video-upload'),
     path('repository/register/', views.RepositorioListCreate.as_view(), name='repositorio-list'),
     path('repository/delete/<int:pk>/', views.RepositorioDelete.as_view(), name='delete-repositorio'),
+    path('repository/user/', views.RepositoriosDoUsuarioList.as_view(), name='repositorios-do-usuario'),
+    path('repository/<int:pk>/', views.RepositorioDetailView.as_view(), name='repositorio-detail'),
 ]

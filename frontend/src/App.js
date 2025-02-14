@@ -42,7 +42,7 @@ function App() {
         <Route path="/createRepository" element={<ProtectedRoute> <CreateRepository /> </ProtectedRoute>} />
         <Route path="/updateRepository" element={<ProtectedRoute> <UpdateRepository /> </ProtectedRoute>} />
         <Route path="/configuracoes" element={<ProtectedRoute> <Configuracoes /> </ProtectedRoute>} />
-        <Route path="/repository" element={<ProtectedRoute> <Repository /> </ProtectedRoute>} />
+        <Route path="/repository/:id" element={<ProtectedRoute> <Repository /> </ProtectedRoute>} />
         <Route path="/repositoryTrash" element={<ProtectedRoute> <RepositoryTrash /> </ProtectedRoute>} />
         <Route path="/ultimasAnalises" element={<ProtectedRoute> <UltimasAnalises /> </ProtectedRoute>} />
         <Route path="/uploadVideo" element={<ProtectedRoute> <UploadVideo /> </ProtectedRoute>} />

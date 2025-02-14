@@ -1,11 +1,12 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Menu from '../../components/menu/menu';
 import styles from './repository.module.css';
 import { FiSliders } from "react-icons/fi";
 import { FiTrash2 } from "react-icons/fi";
 import { FiSettings } from "react-icons/fi";
 import { FiArrowLeftCircle } from "react-icons/fi";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import api from '../../../api';
 
 function Cards({ videoName, isAnalised }) {
   return (
@@ -22,6 +23,31 @@ function Cards({ videoName, isAnalised }) {
 };
 
 function Repository() {
+  const { id } = useParams();
+  const [repository, setRepository] = useState(null);
+  const [videos, setVideos] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchRepository = async () => {
+      try {
+        const response = await api.get(`/app/repository/${id}`, {
+          headers: {
+            'Authorization': `Token ${localStorage.getItem('token')}`
+          }
+        });
+        setRepository(response.data);
+        setVideos(response.data.videos);
+      } catch (error) {
+        setError(error);
+      } finally {
+        setLoading(false)
+      }
+    };
+
+    fetchRepository();
+  }, [id]);
 
   const navigate = useNavigate();
   const handleClickHome = () => {
@@ -34,6 +60,11 @@ function Repository() {
     navigate("/repositoryTrash");
   };
 
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
+
+  if (!loading) {
     return (
       <>
       <Menu />
@@ -41,10 +72,10 @@ function Repository() {
         <div className={styles.repoGrid}>
         <FiArrowLeftCircle style={{width: '30px', height: '30px', cursor: 'pointer'}} onClick={handleClickHome}/>
           <div className={styles.repoFlex}>
-            <img src="https://static.vecteezy.com/system/resources/previews/018/765/757/original/user-profile-icon-in-flat-style-member-avatar-illustration-on-isolated-background-human-permission-sign-business-concept-vector.jpg" alt="" class="img-thumbnail" id={styles.imageRepository}></img>
+          <img src={repository.imagem} alt="" className="img-thumbnail" id={styles.imageRepository}></img>
                 <div className={styles.titleFlex}>
-                    <h5 className={styles.repositoryName}>Nome do repositório</h5>
-                    <p className={styles.repositoryDescription}>Lorem ipsum dolor sit amet, consectetur adipiscing elit.aaaaaaaa</p>
+                    <h5 className={styles.repositoryName}>{repository.nome}</h5>
+                    <p className={styles.repositoryDescription}>{repository.descricao}</p>
                 </div> 
               </div>
                 <input type='text' className={styles.searchbar} placeholder='Procure um vídeo...'></input>
@@ -55,27 +86,10 @@ function Repository() {
       </div>
       <div className={styles.line}></div>
       <div className={styles.column}>
-          <Cards videoName={"Video Name"} isAnalised={"Analisado"}/>
-          <Cards videoName={"Video Name"} isAnalised={"Analisado"}/>
-          <Cards videoName={"Video Name"} isAnalised={"Analisado"}/>
-          <Cards videoName={"Video Name"} isAnalised={"Analisado"}/>
-          <Cards videoName={"Video Name"} isAnalised={"Analisado"}/>
-          <Cards videoName={"Video Name"} isAnalised={"Analisado"}/>
-          <Cards videoName={"Video Name"} isAnalised={"Analisado"}/>
-          <Cards videoName={"Video Name"} isAnalised={"Analisado"}/>
-          <Cards videoName={"Video Name"} isAnalised={"Analisado"}/>
-          <Cards videoName={"Video Name"} isAnalised={"Analisado"}/>
-          <Cards videoName={"Video Name"} isAnalised={"Analisado"}/>
-          <Cards videoName={"Video Name"} isAnalised={"Analisado"}/>
-          <Cards videoName={"Video Name"} isAnalised={"Analisado"}/>
-          <Cards videoName={"Video Name"} isAnalised={"Analisado"}/>
-          <Cards videoName={"Video Name"} isAnalised={"Analisado"}/>
-          <Cards videoName={"Video Name"} isAnalised={"Analisado"}/>
-          <Cards videoName={"Video Name"} isAnalised={"Analisado"}/>
-          <Cards videoName={"Video Name"} isAnalised={"Analisado"}/>
       </div>
       </>
     );
   }
+}
   
-  export default Repository;
+export default Repository;

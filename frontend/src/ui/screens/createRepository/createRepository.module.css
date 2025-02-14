@@ -8,6 +8,7 @@
 }
 
 .scopeCreateRepository {
+  margin-bottom: 10;
   width: 100em;
   max-width: none;
   display: grid;
@@ -105,6 +106,7 @@
   font-size: medium;
   text-transform: uppercase;
   cursor: pointer;
+  margin-bottom: 10;
 }
 
 .privateRepositoryInput {

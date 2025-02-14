@@ -22,7 +22,9 @@ class VideoSerializer(serializers.ModelSerializer):
         fields = ['id', 'titulo', 'descricao', 'file', 'data', 'analise', 'autor', 'repositorio']
 
 class RepositorioSerializer(serializers.ModelSerializer):
+    videos = VideoSerializer(many=True, read_only=True)
+
     class Meta:
         model = Repositorio
-        fields = ['id', 'nome', 'descricao', 'criador', 'privado', 'imagem']
+        fields = ['id', 'nome', 'descricao', 'criador', 'privado', 'colaboradores', 'imagem', 'videos']
         extra_kwargs = {'criador': {'read_only': True}}

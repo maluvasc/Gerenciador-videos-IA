@@ -1,4 +1,5 @@
-from rest_framework import generics, serializers
+from rest_framework import generics
+from rest_framework.decorators import api_view
 from rest_framework.permissions import IsAuthenticated, AllowAny 
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -9,7 +10,6 @@ from .serializers import VideoSerializer, UserSerializer, RepositorioSerializer
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.contrib.auth.models import User
-import logging
 
 # Onde você implementa a lógica das páginas, APIs ou funcionalidades da aplicação.
 class RepositorioListCreate(generics.ListCreateAPIView):
@@ -20,10 +20,18 @@ class RepositorioListCreate(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save(criador=self.request.user)
 
-class RepositorioSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Repositorio
-        fields = ['nome', 'descricao', 'privado', 'imagem']     
+class RepositoriosDoUsuarioList(generics.ListAPIView):
+    serializer_class = RepositorioSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        return Repositorio.objects.filter(criador=user)
+    
+class RepositorioDetailView(generics.RetrieveAPIView):
+    queryset = Repositorio.objects.all()
+    serializer_class = RepositorioSerializer
+    permission_classes = [IsAuthenticated]
 
 class RepositorioDelete(generics.DestroyAPIView):
     serializer_class = RepositorioSerializer

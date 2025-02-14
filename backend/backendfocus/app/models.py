@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 class AnaliseVideo(models.Model):
     titulo = models.CharField(max_length=70)
-    data = models.DateTimeField("data da análise", auto_now_add=True)
+    data_analise = models.DateTimeField("data da análise", auto_now_add=True)
     contemViolencia = models.BooleanField()
 
     def __str__(self):
@@ -15,10 +15,10 @@ class Video(models.Model):
     titulo = models.CharField(max_length=70, default='Sem título')
     descricao = models.TextField(max_length=255, null=True, blank=True)
     file = models.FileField("arquivo de video", upload_to='videos/')
-    data = models.DateTimeField("data de upload", auto_now_add=True)
+    data_upload = models.DateTimeField("data de upload", auto_now_add=True)
     analise = models.ForeignKey('AnaliseVideo', on_delete=models.CASCADE, null=True)
-    autor = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='videos')
-    repositorio = models.ForeignKey('Repositorio', on_delete=models.CASCADE, null=True, related_name='videos')
+    autor = models.ForeignKey(User, on_delete=models.CASCADE, related_name='videos')
+    repositorio = models.ForeignKey('Repositorio', on_delete=models.CASCADE, related_name='videos')
 
     def __str__(self):
         return self.titulo
@@ -28,7 +28,7 @@ class Repositorio(models.Model):
     descricao = models.CharField(max_length=255, blank=True)
     criador = models.ForeignKey(User, on_delete=models.CASCADE, related_name="Repositorios")
     privado = models.BooleanField(default=False)
-    #colaboradores = models.ManyToManyField(User, related_name='colaboradores', blank=True)
+    colaboradores = models.ManyToManyField(User, related_name='colaboradores', blank=True)
     imagem = models.ImageField("imagem do repositório", upload_to='imagens/', null=True, blank=True)
 
     def __str__(self):
