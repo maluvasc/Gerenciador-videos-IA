@@ -10,6 +10,7 @@ from .serializers import VideoSerializer, UserSerializer, RepositorioSerializer
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.contrib.auth.models import User
+import os
 
 # Onde você implementa a lógica das páginas, APIs ou funcionalidades da aplicação.
 class RepositorioListCreate(generics.ListCreateAPIView):
@@ -46,16 +47,38 @@ class VideoListView(APIView):
         videos = Video.objects.all()
         serializer = VideoSerializer(videos, many=True)
         return Response(serializer.data)
+    
+class RepositoryVideosList(generics.ListAPIView):
+    serializer_class = VideoSerializer
+    permission_classes = [IsAuthenticated]
 
+    def get_queryset(self):
+        repositorio_id = self.kwargs['repositorio_id']
+        return Video.objects.filter(repositorio_id=repositorio_id)
+    
 class VideoUploadView(APIView):
     parser_classes = [MultiPartParser, FormParser]
+    permission_classes = [IsAuthenticated]
 
     def post(self, request):
-        serializer = VideoSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        files = request.FILES.getlist('file')
+        response_data = []
+        for file in files:
+            file_name = os.path.splitext(file.name)[0]
+            data = {
+                'titulo': file_name,
+                'descricao': request.data.get('descricao', ''),
+                'file': file,
+                'repositorio': request.data.get('repositorio'),
+                'autor': request.user.id
+            }
+            serializer = VideoSerializer(data=data)
+            if serializer.is_valid():
+                video = serializer.save(autor=request.user)
+                response_data.append(VideoSerializer(video).data)
+            else:
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(response_data, status=status.HTTP_201_CREATED)
 
 #Criação de usuário
 class CreateUserView(generics.CreateAPIView):

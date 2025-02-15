@@ -67,6 +67,7 @@ function CreateRepository() {
       });
 
       alert("Repositório cadastrado com sucesso!");
+      navigate("/")
     } catch (error) {
       console.error(error);
 

@@ -21,7 +21,7 @@ function Cadastro() {
     if (confirmPassword !== password) {
       setErrors((prev) => ({
         ...prev,
-        confirmPassword: "Passwords don't match. Try again",
+        confirmPassword: "Senhas não coincidem. Tente novamente.",
       }));
       return;
     }
@@ -29,7 +29,7 @@ function Cadastro() {
     if (password.length < 8) {
       setErrors((prev) => ({
         ...prev,
-        password: "Password must be at least eight characters.",
+        password: "Senha deve ter pelo menos 8 caracteres.",
       }));
       return;
     } else {
@@ -40,6 +40,7 @@ function Cadastro() {
           email,
           password,
         });
+        
         alert("Usuário cadastrado com sucesso! Redirecionando para Login"); // Exibe um alerta de sucesso
         navigate("/login"); // Navega para a página de login
       } catch (error) {

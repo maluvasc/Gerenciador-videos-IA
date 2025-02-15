@@ -1,10 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import Menu from '../../components/menu/menu';
 import styles from './repository.module.css';
-import { FiSliders } from "react-icons/fi";
-import { FiTrash2 } from "react-icons/fi";
-import { FiSettings } from "react-icons/fi";
-import { FiArrowLeftCircle } from "react-icons/fi";
+import { FiSliders, FiTrash2, FiSettings, FiArrowLeftCircle, FiUpload } from "react-icons/fi";
 import { useNavigate, useParams } from 'react-router-dom';
 import api from '../../../api';
 
@@ -28,6 +25,7 @@ function Repository() {
   const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [uploadVideos, setUploadVideos] = useState([])
 
   useEffect(() => {
     const fetchRepository = async () => {
@@ -53,15 +51,44 @@ function Repository() {
   const handleClickHome = () => {
     navigate("/");
   };
+
   const handleClickSettings = () => {
     navigate("/updateRepository");
   };
+
   const handleClickTrash = () => {
     navigate("/repositoryTrash");
   };
 
+  const handleFileChange = async (e) => {
+    const files = e.target.files;
+    const formData = new FormData();
+    for (let i = 0; i < files.length; i++) {
+      formData.append('file', files[i]);
+    }
+    formData.append('repositorio', repository.id);
+  
+    try {
+      const response = await api.post('app/videos/upload/', formData, {
+        headers: {
+          'Authorization': `Token ${localStorage.getItem('token')}`,
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+      alert('Vídeos enviados com sucesso!');
+      setVideos([...videos, ...response.data]);
+    } catch (error) {
+      console.error('Erro ao enviar vídeos:', error);
+      alert('Erro ao enviar vídeos.');
+    }
+  };
+
+  const handleUploadClick = async () => {
+    document.getElementById('videoUpload').click()
+  }
+
   if (error) {
-    return <div>Error: {error.message}</div>;
+    return <div>Error: {error.message}</div>
   }
 
   if (!loading) {
@@ -78,6 +105,20 @@ function Repository() {
                     <p className={styles.repositoryDescription}>{repository.descricao}</p>
                 </div> 
               </div>
+                <input
+                    className={styles.videoUpload}
+                    type="file"
+                    id="videoUpload"
+                    accept="video/mp4, video/avi, video/mov"
+                    multiple
+                    onChange={handleFileChange}
+                />
+                <button 
+                    className={styles.uploadButton}
+                    onClick={handleUploadClick}
+                >
+                    <FiUpload size={30} title={"Upload de video"}/>
+                </button>
                 <input type='text' className={styles.searchbar} placeholder='Procure um vídeo...'></input>
                 <FiSliders style={{width: '30px', height: '30px', cursor: 'pointer'}}/>
                 <FiTrash2 style={{width: '30px', height: '30px', cursor: 'pointer'}} onClick={handleClickTrash}/>

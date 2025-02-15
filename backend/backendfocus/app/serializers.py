@@ -19,7 +19,8 @@ class UserSerializer(serializers.ModelSerializer):
 class VideoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Video
-        fields = ['id', 'titulo', 'descricao', 'file', 'data', 'analise', 'autor', 'repositorio']
+        fields = ['id', 'titulo', 'descricao', 'file', 'data_upload', 'analise', 'autor', 'repositorio']
+        read_only_fields = ['autor']
 
 class RepositorioSerializer(serializers.ModelSerializer):
     videos = VideoSerializer(many=True, read_only=True)
