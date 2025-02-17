@@ -56,6 +56,14 @@ class RepositoryVideosList(generics.ListAPIView):
         repositorio_id = self.kwargs['repositorio_id']
         return Video.objects.filter(repositorio_id=repositorio_id)
     
+class RepositorioUpdateView(generics.UpdateAPIView):
+    serializer_class = RepositorioSerializer
+    permission_classes = [IsAuthenticated]
+ 
+    def get_queryset(self):
+        user = self.request.user
+        return Repositorio.objects.filter(criador=user)
+
 class VideoUploadView(APIView):
     parser_classes = [MultiPartParser, FormParser]
     permission_classes = [IsAuthenticated]
