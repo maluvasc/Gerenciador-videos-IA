@@ -9,6 +9,6 @@ urlpatterns = [
     path('repository/update/<int:pk>/', views.RepositorioUpdateView.as_view(), name='update-repositorio'),
     path('repository/delete/<int:pk>/', views.RepositorioDelete.as_view(), name='delete-repositorio'),
     path('repository/user/', views.RepositoriosDoUsuarioList.as_view(), name='repositorios-do-usuario'),
-    path('repository/<int:repositorio_id>/videos/', views.RepositoryVideosList.as_view(), name='videos-do-repositorio'),
+    path("videos/repositorio/<int:repositorio_id>/", views.RepositoryVideosList.as_view(), name="repository-videos"),
     path('repository/<int:pk>/', views.RepositorioDetailView.as_view(), name='repositorio-detail'),
 ]

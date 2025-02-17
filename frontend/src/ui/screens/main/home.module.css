@@ -59,12 +59,12 @@
     display: grid;
     column-gap: 20px;
     justify-items: left;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     margin-right: 10cm;
 }
 
 .repositoryFlex {
-    box-shadow: 3px 3px #919191;
+    box-shadow: 2px 2px #919191;
     width: 400px;
     border-radius: 5px;
     background-color: #F9F9F9;

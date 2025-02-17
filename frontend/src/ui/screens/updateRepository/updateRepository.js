@@ -28,6 +28,27 @@ function UpdateRepository() {
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
 
+  const handleCollaborators = async (e) => {
+    e.preventDefault();
+    try{
+    const response = await api.get(`app/user/retrieve/`, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    setCollaborators(response.data);
+  } catch (error) {
+    console.error(error);
+    if (error.response && error.response.data) {
+      setErrors(error.response.data);
+    } else {
+      setErrors({
+        general: "Erro inesperado. Tente novamente mais tarde.",
+      });
+    }
+  };
+}
+
   const handleSubmit = async (e) => {
     setLoading(true);
     e.preventDefault();
@@ -160,21 +181,11 @@ function UpdateRepository() {
           </div>
           <div className={styles.line2}></div>
           <div className={styles.privateRepositoryInput}>
-            <input
-              type="checkbox"
-              id="repositoryPrivate"
-              value={repositoryPrivate}
-              className={styles.inputInformationCheckbox}
-              onChange={(e) => {
-                setRepositoryPrivate(e.target.checked);
-              }}
-            />
-            <p>Repositório privado?</p>
           </div>
           <div className={styles.collaboratorsInput}>
             <label>Colaboradores</label>
             <select name="collaborators" id="collaborators">
-              <option>Escolha colaboradores</option>
+              <option>{console.log(collaborators)}</option>
             </select>
           </div>
           <div className={styles.gridButtons}>
@@ -184,7 +195,7 @@ function UpdateRepository() {
                 type="submit"
                 disabled={loading}
               >
-                {loading ? "Editando..." : "Editar repositório"}
+                {loading ? "Editar repositório" : "Editar repositório"}
               </button>
             </form>
             <form onSubmit={handleDelete}>
@@ -193,7 +204,7 @@ function UpdateRepository() {
                 type="submit"
                 disabled={loading}
               >
-                {loading ? "Deletando..." : "Deletar repositório"}
+                {loading ? "Deletar repositório" : "Deletar repositório"}
               </button>
             </form>
           </div>

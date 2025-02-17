@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import Menu from "../../components/menu/menu";
 import styles from "./repository.module.css";
 import {
@@ -8,30 +8,55 @@ import {
   FiArrowLeftCircle,
   FiUpload,
 } from "react-icons/fi";
-import { useNavigate, useParams, useLocation } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import api from "../../../api";
 
-function Cards({ videoName, isAnalised }) {
+function Cards({ videoName, videoThumbnail, id }) {
+  const navigate = useNavigate();
+  const handleClickHome = () => {
+    navigate(`/videoPage/${id}`);
+  };
+
   return (
-    <>
-      <div className={styles.videoFlex}>
-        <div className={styles.videoThumbnail}></div>
-        <div>
-          <h5
-            style={{
-              cursor: "pointer",
-              maxWidth: "150px",
-              fontStyle: "italic",
-            }}
-          >
-            {videoName}
-          </h5>
-          <p>{isAnalised}</p>
-        </div>
+    <div className={styles.videoFlex}>
+      <div className={styles.videoThumbnail} onClick={handleClickHome}>
+        {<generateThumbnail videoUrl='http://localhost:8000/media/videos/Vídeo_sem_título__Feito_com_o_Clipchamp_3.mp4'/> && <img src={videoThumbnail} alt="Thumbnail" />}
       </div>
-    </>
+      <div>
+        <h5
+          style={{
+            cursor: "pointer",
+            maxWidth: "300px",
+            fontStyle: "italic",
+            fontSize: "15px",
+          }}
+        >
+          {videoName}
+        </h5>
+      </div>
+    </div>
   );
 }
+
+const generateThumbnail = (videoUrl) => {
+  return new Promise((resolve) => {
+    const video = document.createElement("video");
+    video.src = videoUrl;
+    video.crossOrigin = "anonymous";
+    video.currentTime = 10;
+    video.muted = true;
+    video.playsInline = true;
+
+    video.onloadeddata = () => {
+      const canvas = document.createElement("canvas");
+      canvas.width = 160;
+      canvas.height = 90;
+      const ctx = canvas.getContext("2d");
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+      resolve(canvas.toDataURL("image/jpeg"));
+    };
+  });
+};
 
 function Repository() {
   const { id } = useParams();
@@ -41,10 +66,30 @@ function Repository() {
   const [error, setError] = useState(null);
   const [uploadVideos, setUploadVideos] = useState([]);
 
+  const navigate = useNavigate();
+  const handleClickHome = () => {
+    navigate("/");
+  };
+
+  const fetchVideos = async () => {
+    try {
+      const response = await api.get(`app/videos/repositorio/${id}/`, {
+        headers: {
+          Authorization: `Token ${localStorage.getItem("token")}`,
+        },
+      });
+
+      // Mantém os vídeos locais e adiciona os vídeos do backend
+      setVideos(response.data);
+    } catch (error) {
+      console.error("Erro ao buscar vídeos:", error);
+    }
+  };
+
   useEffect(() => {
     const fetchRepository = async () => {
       try {
-        const response = await api.get(`/app/repository/${id}`, {
+        const response = await api.get(`app/repository/${id}`, {
           headers: {
             Authorization: `Token ${localStorage.getItem("token")}`,
           },
@@ -60,10 +105,9 @@ function Repository() {
     fetchRepository();
   }, [id]);
 
-  const navigate = useNavigate();
-  const handleClickHome = () => {
-    navigate("/");
-  };
+  useEffect(() => {
+    fetchVideos();
+  }, [id]);
 
   const handleClickSettings = () => {
     navigate("/updateRepository", {
@@ -87,22 +131,42 @@ function Repository() {
   };
 
   const handleFileChange = async (e) => {
-    const files = e.target.files;
+    const files = Array.from(e.target.files);
     const formData = new FormData();
-    for (let i = 0; i < files.length; i++) {
-      formData.append("file", files[i]);
+    const updatedVideos = [];
+
+    for (const file of files) {
+      formData.append("file", file);
+
+      // Criar URL local e gerar thumbnail
+      const url = URL.createObjectURL(file);
+      const thumbnail = await generateThumbnail(url);
+      updatedVideos.push({
+        name: file.name,
+        url,
+        thumbnail,
+        repositorio_id: id,
+        isLocal: true,
+      });
     }
-    formData.append("repositorio", repository.id);
+
+    // Atualizar estado mantendo a separação por repositório
+    setUploadVideos((prev) => [...prev, ...updatedVideos]);
+
+    formData.append("repositorio", id); // Garante que o backend receba o ID correto
 
     try {
-      const response = await api.post("app/videos/upload/", formData, {
+      await api.post("app/videos/upload/", formData, {
         headers: {
           Authorization: `Token ${localStorage.getItem("token")}`,
           "Content-Type": "multipart/form-data",
         },
       });
-      alert("Vídeos enviados com sucesso!");
-      setVideos([...videos, ...response.data]);
+
+      // Espera um tempo antes de buscar os vídeos do backend
+      setTimeout(() => {
+        fetchVideos();
+      }, 3000);
     } catch (error) {
       console.error("Erro ao enviar vídeos:", error);
       alert("Erro ao enviar vídeos.");
@@ -145,7 +209,7 @@ function Repository() {
               className={styles.videoUpload}
               type="file"
               id="videoUpload"
-              accept="video/mp4, video/avi, video/mov"
+              accept="video/mp4, video/mkv, video/mov"
               multiple
               onChange={handleFileChange}
             />
@@ -171,7 +235,16 @@ function Repository() {
           </div>
         </div>
         <div className={styles.line}></div>
-        <div className={styles.column}></div>
+        <div className={styles.column}>
+          {uploadVideos.map((video, index) => (
+            <Cards
+              key={index}
+              videoName={video.name}
+              videoThumbnail={video.thumbnail}
+              id={id}
+            />
+          ))}
+        </div>
       </>
     );
   }

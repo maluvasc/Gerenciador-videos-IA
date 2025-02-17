@@ -6,7 +6,7 @@
 
 .repoGrid {
     display: flex;
-    gap: 50px;
+    gap: 125px;
     align-items: center;
 }
 

@@ -87,6 +87,14 @@ class VideoUploadView(APIView):
             else:
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         return Response(response_data, status=status.HTTP_201_CREATED)
+    
+class ListUsersView(APIView):
+    permission_classes = [IsAuthenticated]  # Apenas usuários logados podem ver a lista
+
+    def get(self, request):
+        users = User.objects.all().order_by("username")  # Lista todos os usuários ordenados pelo nome
+        serializer = UserSerializer(users, many=True)
+        return Response(serializer.data)
 
 #Criação de usuário
 class CreateUserView(generics.CreateAPIView):

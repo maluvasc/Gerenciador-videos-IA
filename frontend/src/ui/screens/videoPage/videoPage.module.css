@@ -44,8 +44,8 @@
 
 .videoThumbnail {
   width: 100%;
-  height: auto; /* Ajustado para manter a proporção da largura maior que a altura */
-  aspect-ratio: 16 / 9; /* Garante que a proporção do vídeo seja retangular, largura maior que altura */
+  height: auto;
+  aspect-ratio: 16 / 9;
   background-color: #d3d3d3;
   border-radius: 1vw;
   position: relative;
