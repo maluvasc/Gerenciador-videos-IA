@@ -18,6 +18,6 @@ db.sqlite3
 
 # VS Code settings
 .vscode/
-.\backend\backendfocus\app\__pycache__\
+./backend/backendfocus/app/__pycache__/
 ./backend/backendfocus/app/migrations/__pycache__/
 ./backend/backendfocus/backendfocus/__pycache__/

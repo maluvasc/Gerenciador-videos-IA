@@ -16,7 +16,7 @@ class Video(models.Model):
     descricao = models.TextField(max_length=255, null=True, blank=True)
     file = models.FileField("arquivo de video", upload_to='videos/')
     data_upload = models.DateTimeField("data de upload", auto_now_add=True)
-    analise = models.ForeignKey('AnaliseVideo', on_delete=models.CASCADE, null=True)
+    analise = models.ForeignKey('AnaliseVideo', on_delete=models.CASCADE, null=True, blank=True)
     autor = models.ForeignKey(User, on_delete=models.CASCADE, related_name='videos')
     repositorio = models.ForeignKey('Repositorio', on_delete=models.CASCADE, related_name='videos')
 
