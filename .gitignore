@@ -21,3 +21,5 @@ db.sqlite3
 ./backend/backendfocus/app/__pycache__/
 ./backend/backendfocus/app/migrations/__pycache__/
 ./backend/backendfocus/backendfocus/__pycache__/
+backend/backendfocus/.env
+*.pyc
