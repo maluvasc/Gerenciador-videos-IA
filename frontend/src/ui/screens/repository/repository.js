@@ -9,117 +9,68 @@ import {
   FiUpload,
 } from "react-icons/fi";
 import { useNavigate, useParams } from "react-router-dom";
+import ReactPlayer from "react-player";
 import api from "../../../api";
 
-function Cards({ videoName, videoThumbnail, id }) {
-  const navigate = useNavigate();
-  const handleClickHome = () => {
-    navigate(`/videoPage/${id}`);
-  };
-
+// Componente para exibir cada vídeo como um card
+function VideoCard({ video }) {
   return (
     <div className={styles.videoFlex}>
-      <div className={styles.videoThumbnail} onClick={handleClickHome}>
-        {<generateThumbnail videoUrl='http://localhost:8000/media/videos/Vídeo_sem_título__Feito_com_o_Clipchamp_3.mp4'/> && <img src={videoThumbnail} alt="Thumbnail" />}
-      </div>
-      <div>
-        <h5
-          style={{
-            cursor: "pointer",
-            maxWidth: "300px",
-            fontStyle: "italic",
-            fontSize: "15px",
-          }}
-        >
-          {videoName}
-        </h5>
-      </div>
+      <ReactPlayer
+        url={video.url}
+        controls
+        width="100%"
+        height="100%"
+        playing={false}
+      />
+      <p className={styles.videoTitle}>{video.name}</p>
     </div>
   );
 }
 
-const generateThumbnail = (videoUrl) => {
-  return new Promise((resolve) => {
-    const video = document.createElement("video");
-    video.src = videoUrl;
-    video.crossOrigin = "anonymous";
-    video.currentTime = 10;
-    video.muted = true;
-    video.playsInline = true;
-
-    video.onloadeddata = () => {
-      const canvas = document.createElement("canvas");
-      canvas.width = 160;
-      canvas.height = 90;
-      const ctx = canvas.getContext("2d");
-      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-      resolve(canvas.toDataURL("image/jpeg"));
-    };
-  });
-};
-
 function Repository() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [repository, setRepository] = useState(null);
   const [videos, setVideos] = useState([]);
+  const [uploadVideos, setUploadVideos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [uploadVideos, setUploadVideos] = useState([]);
 
-  const navigate = useNavigate();
-  const handleClickHome = () => {
-    navigate("/");
-  };
-
+  // Busca os vídeos do repositório
   const fetchVideos = async () => {
     try {
-      const response = await api.get(`app/videos/repositorio/${id}/`, {
-        headers: {
-          Authorization: `Token ${localStorage.getItem("token")}`,
-        },
+      const response = await api.get(`app/videos/${id}`, {
+        headers: { Authorization: `Token ${localStorage.getItem("token")}` },
       });
-
-      // Mantém os vídeos locais e adiciona os vídeos do backend
       setVideos(response.data);
     } catch (error) {
-      console.error("Erro ao buscar vídeos:", error);
+      console.error("Erro ao buscar os vídeos:", error);
+    } finally {
+      setLoading(false);
     }
   };
-
-  useEffect(() => {
-    const fetchRepository = async () => {
-      try {
-        const response = await api.get(`app/repository/${id}`, {
-          headers: {
-            Authorization: `Token ${localStorage.getItem("token")}`,
-          },
-        });
-        setRepository(response.data);
-        setVideos(response.data.videos);
-      } catch (error) {
-        setError(error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchRepository();
-  }, [id]);
 
   useEffect(() => {
     fetchVideos();
   }, [id]);
 
-  const handleClickSettings = () => {
-    navigate("/updateRepository", {
-      state: {
-        id: id,
-        reponame: repository.name,
-        repodesc: repository.descricao,
-        repoimagem: repository.imagem,
-      },
-    });
-  };
+  // Busca os detalhes do repositório
+  useEffect(() => {
+    const fetchRepository = async () => {
+      try {
+        const response = await api.get(`app/repository/${id}`, {
+          headers: { Authorization: `Token ${localStorage.getItem("token")}` },
+        });
+        setRepository(response.data);
+      } catch (error) {
+        setError(error);
+      }
+    };
+    fetchRepository();
+  }, [id]);
 
+  // Envia os vídeos selecionados para o backend
   const handleClickTrash = () => {
     navigate("/repositoryTrash", {
       state: {
@@ -138,13 +89,10 @@ function Repository() {
     for (const file of files) {
       formData.append("file", file);
 
-      // Criar URL local e gerar thumbnail
       const url = URL.createObjectURL(file);
-      const thumbnail = await generateThumbnail(url);
       updatedVideos.push({
         name: file.name,
         url,
-        thumbnail,
         repositorio_id: id,
         isLocal: true,
       });
@@ -153,7 +101,7 @@ function Repository() {
     // Atualizar estado mantendo a separação por repositório
     setUploadVideos((prev) => [...prev, ...updatedVideos]);
 
-    formData.append("repositorio", id); // Garante que o backend receba o ID correto
+    formData.append("repositorio", id);
 
     try {
       await api.post("app/videos/upload/", formData, {
@@ -162,92 +110,98 @@ function Repository() {
           "Content-Type": "multipart/form-data",
         },
       });
-
-      // Espera um tempo antes de buscar os vídeos do backend
-      setTimeout(() => {
-        fetchVideos();
-      }, 3000);
     } catch (error) {
       console.error("Erro ao enviar vídeos:", error);
       alert("Erro ao enviar vídeos.");
     }
   };
 
-  const handleUploadClick = async () => {
-    document.getElementById("videoUpload").click();
-  };
+  if (error) return <div>Erro: {error.message}</div>;
+  if (loading) return <div>Carregando...</div>;
 
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
-
-  if (!loading) {
-    return (
-      <>
-        <Menu />
-        <div className={styles.mainRepository}>
-          <div className={styles.repoGrid}>
-            <FiArrowLeftCircle
-              style={{ width: "30px", height: "30px", cursor: "pointer" }}
-              onClick={handleClickHome}
+  return (
+    <>
+      <Menu />
+      <div className={styles.mainRepository}>
+        <div className={styles.repoGrid}>
+          <FiArrowLeftCircle
+            style={{ width: "30px", height: "30px", cursor: "pointer" }}
+            onClick={() => navigate("/")}
+          />
+          <div className={styles.repoFlex}>
+            <img
+              src={repository?.imagem}
+              alt="Imagem do Repositório"
+              className="img-thumbnail"
+              id={styles.imageRepository}
             />
-            <div className={styles.repoFlex}>
-              <img
-                src={repository.imagem}
-                alt=""
-                className="img-thumbnail"
-                id={styles.imageRepository}
-              ></img>
-              <div className={styles.titleFlex}>
-                <h5 className={styles.repositoryName}>{repository.nome}</h5>
-                <p className={styles.repositoryDescription}>
-                  {repository.descricao}
-                </p>
-              </div>
+            <div className={styles.titleFlex}>
+              <h5 className={styles.repositoryName}>{repository?.nome}</h5>
+              <p className={styles.repositoryDescription}>
+                {repository?.descricao}
+              </p>
             </div>
-            <input
-              className={styles.videoUpload}
-              type="file"
-              id="videoUpload"
-              accept="video/mp4, video/mkv, video/mov"
-              multiple
-              onChange={handleFileChange}
-            />
-            <button className={styles.uploadButton} onClick={handleUploadClick}>
-              <FiUpload size={30} title={"Upload de video"} />
-            </button>
-            <input
-              type="text"
-              className={styles.searchbar}
-              placeholder="Procure um vídeo..."
-            ></input>
-            <FiSliders
-              style={{ width: "30px", height: "30px", cursor: "pointer" }}
-            />
-            <FiTrash2
-              style={{ width: "30px", height: "30px", cursor: "pointer" }}
-              onClick={handleClickTrash}
-            />
-            <FiSettings
-              style={{ width: "30px", height: "30px", cursor: "pointer" }}
-              onClick={handleClickSettings}
-            />
           </div>
+          <input
+            type="file"
+            id="videoUpload"
+            accept="video/*"
+            multiple
+            className={styles.videoUpload}
+            onChange={handleFileChange}
+            hidden
+          />
+          <button
+            className={styles.uploadButton}
+            onClick={() => document.getElementById("videoUpload").click()}
+          >
+            <FiUpload size={30} title="Upload de vídeo" />
+          </button>
+
+          <input
+            type="text"
+            className={styles.searchbar}
+            placeholder="Procure um vídeo..."
+          />
+          <FiSliders
+            style={{ width: "30px", height: "30px", cursor: "pointer" }}
+          />
+          <FiTrash2
+            style={{ width: "30px", height: "30px", cursor: "pointer" }}
+            onClick={() =>
+              navigate("/repositoryTrash", {
+                state: {
+                  id,
+                  reponame: repository?.nome,
+                  repoimagem: repository?.imagem,
+                },
+              })
+            }
+          />
+          <FiSettings
+            style={{ width: "30px", height: "30px", cursor: "pointer" }}
+            onClick={() =>
+              navigate("/updateRepository", {
+                state: {
+                  id,
+                  reponame: repository?.nome,
+                  repodesc: repository?.descricao,
+                  repoimagem: repository?.imagem,
+                },
+              })
+            }
+          />
         </div>
-        <div className={styles.line}></div>
-        <div className={styles.column}>
-          {uploadVideos.map((video, index) => (
-            <Cards
-              key={index}
-              videoName={video.name}
-              videoThumbnail={video.thumbnail}
-              id={id}
-            />
-          ))}
-        </div>
-      </>
-    );
-  }
+      </div>
+
+      <div className={styles.line}></div>
+      <div className={styles.column}>
+        {videos.map((video, index) => (
+          <VideoCard key={index} video={video} />
+        ))}
+      </div>
+    </>
+  );
 }
 
 export default Repository;

@@ -11,10 +11,13 @@ class AnaliseVideo(models.Model):
     def __str__(self):
         return self.titulo
     
+def upload_to(instance, filename):
+    return f'videos/{instance.repositorio.id}/{filename}'
+
 class Video(models.Model):
     titulo = models.CharField(max_length=70, default='Sem título')
     descricao = models.TextField(max_length=255, null=True, blank=True)
-    file = models.FileField("arquivo de video", upload_to='videos/')
+    file = models.FileField("arquivo de video", upload_to=upload_to)
     data_upload = models.DateTimeField("data de upload", auto_now_add=True)
     analise = models.ForeignKey('AnaliseVideo', on_delete=models.CASCADE, null=True)
     autor = models.ForeignKey(User, on_delete=models.CASCADE, related_name='videos')

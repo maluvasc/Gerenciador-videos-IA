@@ -3,7 +3,7 @@ from . import views
 # Define as rotas específicas da aplicação.
 
 urlpatterns = [
-    path('videos/', views.VideoListView.as_view(), name='video-list'),
+    path('videos/<int:pk>/', views.VideoListView.as_view(), name='video-list'),
     path('videos/upload/', views.VideoUploadView.as_view(), name='video-upload'),
     path('repository/register/', views.RepositorioListCreate.as_view(), name='repositorio-list'),
     path('repository/update/<int:pk>/', views.RepositorioUpdateView.as_view(), name='update-repositorio'),

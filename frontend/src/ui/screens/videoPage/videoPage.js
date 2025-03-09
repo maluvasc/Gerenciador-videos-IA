@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useLocation } from "react-router-dom";
-import api from "../../../api"; // Ajuste conforme necessário
+import api from "../../../api";
 import styles from "./videoPage.module.css";
 import Menu from "../../components/menu/menu";
 
 function VideoPage() {
   const { id } = useParams();
-  const videoUrl =
-    "http://localhost:8000/media/videos/Vídeo_sem_título__Feito_com_o_Clipchamp_3.mp4";
-  const videoName="Vídeo_sem_título__Feito_com_o_Clipchamp_3"
+  const [videoUrl, setVideoUrl] = useState("");
 
-  /*
   useEffect(() => {
     const fetchVideo = async () => {
       try {
@@ -20,7 +17,7 @@ function VideoPage() {
           },
         });
 
-        setVideoUrl(response.data.file[0]);
+        setVideoUrl(response.data.file);
       } catch (error) {
         console.error("Erro ao carregar o vídeo:", error);
       }
@@ -28,7 +25,7 @@ function VideoPage() {
 
     fetchVideo();
   }, [id]);
-  */
+
   return (
     <>
       <Menu />
@@ -39,10 +36,7 @@ function VideoPage() {
           <div className={styles.videoThumbnail}>
             <div>
               <video width="750" height="500" controls>
-                <source
-                  src={videoUrl}
-                  type="video/mp4"
-                />
+                <source src={videoUrl} type="video/mp4" />
               </video>
             </div>
           </div>
@@ -74,7 +68,7 @@ function VideoPage() {
         </div>
       </div>
       <div className={styles.textFlex}>
-        <div className={styles.videoName}>{videoName}</div>
+        <div className={styles.videoName}></div>
         <button className={styles.deleteButton}>Deletar Vídeo</button>
       </div>
     </>

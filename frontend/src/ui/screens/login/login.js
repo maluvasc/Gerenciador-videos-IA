@@ -21,6 +21,11 @@ function Login() {
       const response = await api.post("app/token/", { username, password });
       localStorage.setItem(ACCESS_TOKEN, response.data.access);
       localStorage.setItem(REFRESH_TOKEN, response.data.refresh);
+
+      if (localStorage.getItem("user") === null) {
+        localStorage.setItem("user", username)
+      }
+
       navigate("/"); // Navega para a página inicial
     } catch (error) {
       console.error(error);

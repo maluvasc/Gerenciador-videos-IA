@@ -1,4 +1,4 @@
-from rest_framework import generics
+from rest_framework import generics, status
 from rest_framework.decorators import api_view
 from rest_framework.permissions import IsAuthenticated, AllowAny 
 from rest_framework.views import APIView
@@ -43,11 +43,13 @@ class RepositorioDelete(generics.DestroyAPIView):
         return Repositorio.objects.filter(criador=user) 
 
 class VideoListView(APIView):
-    def get(self, request):
-        videos = Video.objects.all()
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, pk): 
+        videos = Video.objects.filter(repositorio_id=pk)  
         serializer = VideoSerializer(videos, many=True)
         return Response(serializer.data)
-    
+
 class RepositoryVideosList(generics.ListAPIView):
     serializer_class = VideoSerializer
     permission_classes = [IsAuthenticated]
@@ -70,6 +72,16 @@ class VideoUploadView(APIView):
 
     def post(self, request):
         files = request.FILES.getlist('file')
+        repositorio_id = request.data.get('repositorio')
+
+        if not repositorio_id:
+            return Response({"error": "O campo 'repositorio' é obrigatório."}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            repositorio = Repositorio.objects.get(id=repositorio_id)
+        except Repositorio.DoesNotExist:
+            return Response({"error": "Repositório não encontrado."}, status=status.HTTP_404_NOT_FOUND)
+        
         response_data = []
         for file in files:
             file_name = os.path.splitext(file.name)[0]
@@ -77,13 +89,14 @@ class VideoUploadView(APIView):
                 'titulo': file_name,
                 'descricao': request.data.get('descricao', ''),
                 'file': file,
-                'repositorio': request.data.get('repositorio'),
+                'repositorio': repositorio.id,
                 'autor': request.user.id
             }
             serializer = VideoSerializer(data=data)
             if serializer.is_valid():
                 video = serializer.save(autor=request.user)
                 response_data.append(VideoSerializer(video).data)
+                print(video.file.path)
             else:
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         return Response(response_data, status=status.HTTP_201_CREATED)
@@ -108,6 +121,37 @@ class CreateUserView(generics.CreateAPIView):
             serializer.save() #salva o usuário no banco de dados
         else:
             print(serializer.errors)
+
+class EditUserView(generics.UpdateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_object(self):
+        return self.request.user #retorna o usuário que está fazendo a requisição
+    def update(self, request, *args, **kwargs):
+        user = self.get_object()
+        user.email = request.data.get("email", user.email)
+        user.save()
+        return Response(UserSerializer(user).data)
+
+class ChangePasswordUserView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        user = request.user
+        password = request.data.get('password')
+        user.set_password(password)
+        user.save()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    
+class DeleteAccountView(generics.DestroyAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_object(self):
+        return self.request.user
 
 def home(request):
     return HttpResponse("Bem-vindo ao Gerenciador de Vídeos!")
