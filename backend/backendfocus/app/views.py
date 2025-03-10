@@ -182,5 +182,10 @@ class DeleteAccountView(generics.DestroyAPIView):
     def get_object(self):
         return self.request.user
 
+class VideoDetailView(generics.RetrieveAPIView):
+    queryset = Video.objects.all()
+    serializer_class = VideoSerializer
+    permission_classes = [IsAuthenticated]
+
 def home(request):
     return HttpResponse("Bem-vindo ao Gerenciador de Vídeos!")
