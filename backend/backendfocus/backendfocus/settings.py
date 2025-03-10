@@ -50,7 +50,6 @@ SIMPLE_JWT = {
 # Application definition
 
 INSTALLED_APPS = [
-    'storages',
     'app.apps.AppConfig',
     'rest_framework',
     'corsheaders',
@@ -76,6 +75,9 @@ MIDDLEWARE = [
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',  # React frontend
 ]
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 # Tamanho máximo permitido para uploads de arquivos (em bytes)
 FILE_UPLOAD_MAX_MEMORY_SIZE = 524288000  # 500 MB
@@ -103,24 +105,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'backendfocus.wsgi.application'
 
-# Configurações AWS S3
-AWS_ACCESS_KEY_ID = os.getenv('S3_KEY')
-AWS_SECRET_ACCESS_KEY = os.getenv('S3_SECRET_ACESS_KEY')
-AWS_STORAGE_BUCKET_NAME = os.getenv('S3_BUCKET_NAME')
-AWS_S3_REGION_NAME = 'sa-east-1'
-AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
-AWS_S3_FILE_OVERWRITE = False
-AWS_DEFAULT_ACL = None
-AWS_S3_SIGNATURE_VERSION = 's3v4'
-AWS_S3_VERIFY = True
-
-# Configurações do django-storages
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/media/'
-MEDIA_ROOT = BASE_DIR / '/media/'
-
-STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
