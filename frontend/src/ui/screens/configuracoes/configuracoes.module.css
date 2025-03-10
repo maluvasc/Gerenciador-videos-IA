@@ -88,14 +88,14 @@
 .flexFirstRowFirstColumn {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 50px;
   align-items: center;
 }
 
 .flexFirstRowSecondColumn {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 30px;
   align-items: flex-start;
   justify-content: flex-start;
 }
@@ -109,8 +109,14 @@
 .passwordContainer {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 30px;
   justify-content: center;
+}
+
+.passwordForm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .deleteContainer {
@@ -132,9 +138,6 @@
   margin: 20px;
 }
 
-.buttonDiv {
-  margin-top: 300px;
-}
 
 .deleteButton {
   background-color: #ff4d4d;

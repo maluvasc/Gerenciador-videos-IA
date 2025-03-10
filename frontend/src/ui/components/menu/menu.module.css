@@ -12,7 +12,7 @@ body {
     width: 50px;
     min-width: 40px;
     height: 100vh;
-    background: linear-gradient(180deg, #d9d9d9, #a6a6a6);
+    background: linear-gradient(180deg, #1e0e62, #1d0e6296);
     position: fixed;
     left: 0;
     top: 0; /* Garante que o navbar esteja fixo ao topo */
@@ -31,7 +31,7 @@ body {
   .topbar {
     width: 100%;
     height: 50px; 
-    background: linear-gradient(135deg, #d9d9d9, #a6a6a6);
+    background: linear-gradient(135deg, #1e0e62, #1d0e6296);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -52,7 +52,7 @@ body {
     align-items: center;
     flex-direction: column;
     padding: 10px;
-    color: #666666;
+    color: #ecdede;
     text-decoration: none;
     transition: background-color 0.3s;
     width: 100%;
@@ -75,7 +75,7 @@ body {
     align-items: center;
     width: 100%;
     padding: 10px;
-    color: #666666;
+    color: #ecdede;
     background: none;
     border: none;
     text-align: left;

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Video, Repositorio
+from .models import Video, Repositorio, UserProfile
 from django.contrib.auth.models import User
 
 # Usado para converter modelos em JSON (ou outros formatos), principalmente quando você usa Django REST Framework.
@@ -15,6 +15,11 @@ class UserSerializer(serializers.ModelSerializer):
     def create(self, validaded_data):
         user = User.objects.create_user(**validaded_data) #cria um usuário com os dados validados
         return user
+    
+class UserProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserProfile
+        fields = ['nome_personalizado', 'imagem']
 
 class VideoSerializer(serializers.ModelSerializer):
     class Meta:

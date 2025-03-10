@@ -5,14 +5,32 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework import status
-from .models import Video, Repositorio
-from .serializers import VideoSerializer, UserSerializer, RepositorioSerializer
+from .models import Video, Repositorio, UserProfile
+from .serializers import VideoSerializer, UserSerializer, RepositorioSerializer, UserProfileSerializer
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.contrib.auth.models import User
 import os
 
 # Onde você implementa a lógica das páginas, APIs ou funcionalidades da aplicação.
+
+class UserProfileUpdateView(generics.RetrieveUpdateAPIView):
+    serializer_class = UserProfileSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_object(self):
+        profile, created = UserProfile.objects.get_or_create(user=self.request.user)
+        return profile
+    
+
+class UserProfileView(generics.RetrieveAPIView):
+    serializer_class = UserProfileSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_object(self):
+        profile, created = UserProfile.objects.get_or_create(user=self.request.user)
+        return profile
+
 class RepositorioListCreate(generics.ListCreateAPIView):
     queryset = Repositorio.objects.all()
     serializer_class = RepositorioSerializer
@@ -138,12 +156,23 @@ class EditUserView(generics.UpdateAPIView):
 class ChangePasswordUserView(APIView):
     permission_classes = [IsAuthenticated]
 
-    def post(self, request):
+    def put(self, request):
         user = request.user
-        password = request.data.get('password')
-        user.set_password(password)
+        old_password = request.data.get("old_password")
+        new_password = request.data.get("new_password")
+        confirm_password = request.data.get("confirm_password")
+
+        if not user.check_password(old_password):
+            return Response({"error": "Senha antiga incorreta."}, status=status.HTTP_400_BAD_REQUEST)
+
+        if new_password != confirm_password:
+            return Response({"error": "As senhas novas não coincidem."}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Define a nova senha e salva
+        user.set_password(new_password)
         user.save()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+
+        return Response({"message": "Senha alterada com sucesso."}, status=status.HTTP_200_OK)
     
 class DeleteAccountView(generics.DestroyAPIView):
     queryset = User.objects.all()

@@ -7,8 +7,8 @@ import api from "../../../api";
 
 function Configuracoes() {
   const [nome, setNome] = useState("");
-  const [consent, setConsent] = useState(false);
   const [email, setEmail] = useState("");
+  const [imagem, setImagem] = useState("");
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -21,11 +21,20 @@ function Configuracoes() {
     setLoading(true);
     setErrors({});
 
-    localStorage.setItem("user", nome);
-
     try {
+      const formData = new FormData();
+      formData.append("nome_personalizado", nome);
+      if (imagem) {
+        formData.append("imagem", imagem); // Adiciona o arquivo ao FormData
+      }
+
+      const response = await api.put("app/userProfile/update/", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
       await api.put("app/user/update/", { email }); // Apenas email
-      alert("Email atualizado com sucesso!");
     } catch (error) {
       console.log(error.response); // Ver erro no console
       setErrors(error.response?.data || { general: "Erro inesperado." });
@@ -40,12 +49,19 @@ function Configuracoes() {
     setErrors({});
 
     try {
-      await api.put("app/user/changePassword/", {
-        old_password: oldPassword,
-        new_password: newPassword,
-        confirm_password: confirmPassword,
-      });
-      alert("Senha alterada com sucesso!");
+      const response = await api.put(
+        "app/user/changePassword/",
+        {
+          old_password: oldPassword,
+          new_password: newPassword,
+          confirm_password: confirmPassword,
+        },
+        {
+          headers: { Authorization: `Token ${localStorage.getItem("token")}` },
+        }
+      );
+
+      alert(response.data.message);
     } catch (error) {
       setErrors(error.response?.data || { general: "Erro inesperado." });
     } finally {
@@ -85,6 +101,7 @@ function Configuracoes() {
                 type="file"
                 id="fileUpload"
                 className={styles.uploadInput}
+                onChange={(e) => setImagem(e.target.files[0])}
               />
             </div>
             <div className={styles.flexFirstRowSecondColumn}>
@@ -114,9 +131,12 @@ function Configuracoes() {
                   <span className={styles.errorText}>{errors.email}</span>
                 )}
               </div>
-            </div>
-            <div className={styles.buttonDiv}>
-              <button class={styles.passwordButton}> Salvar alterações</button>
+              <div className={styles.buttonDiv}>
+                <button class={styles.passwordButton}>
+                  {" "}
+                  Salvar alterações
+                </button>
+              </div>
             </div>
           </div>
         </form>
@@ -129,12 +149,14 @@ function Configuracoes() {
               <FiLock style={{ width: "30px", height: "30px" }} />
             </div>
             <div className={styles.flexFirstRowSecondColumn}>
-              <form onSubmit={handlePasswordChange}>
+              <form
+                className={styles.passwordForm}
+                onSubmit={handlePasswordChange}
+              >
                 <div className={styles.userInput}>
                   <label>Senha Atual</label>
                   <input
                     type="password"
-                    className={styles.inputInformationName}
                     placeholder="Senha Atual"
                     value={oldPassword}
                     onChange={(e) => setOldPassword(e.target.value)}
@@ -144,7 +166,6 @@ function Configuracoes() {
                   <label>Nova Senha</label>
                   <input
                     type="password"
-                    className={styles.inputInformationUser}
                     placeholder="Nova Senha"
                     value={newPassword}
                     onChange={(e) => setNewPassword(e.target.value)}
@@ -154,13 +175,16 @@ function Configuracoes() {
                   <label>Confimar Senha</label>
                   <input
                     type="password"
-                    className={styles.inputInformationUser}
                     placeholder="Confirmar Nova Senha"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                   />
                 </div>
-                <button type="submit" disabled={loading}>
+                <button
+                  type="submit"
+                  className={styles.passwordButton}
+                  disabled={loading}
+                >
                   Alterar Senha
                 </button>
               </form>
@@ -180,10 +204,6 @@ function Configuracoes() {
                 a enviar uma solicitação formal ao meu administrador de serviço
                 para a criação de uma nova conta.
               </p>
-            </div>
-            <div class={styles.checkboxContainer}>
-              <input type="checkbox" id="consent" />
-              <label for="consent">Eu concordo com o aviso acima</label>
             </div>
             <button
               onClick={handleDeleteAccount}

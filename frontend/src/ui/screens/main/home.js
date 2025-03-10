@@ -26,7 +26,24 @@ function Cards({ repositoryId, repositoryName, repositoryDescription }) {
 
 function Home() {
   const [repositories, setRepositories] = useState([]);
+  const [userProfile, setUserProfile] = useState([]);
   const [user, setUser] = useState(localStorage.getItem("user"));
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      try {
+        const response = await api.get(`app/userProfile/retrieve/`, {
+          headers: { Authorization: `Token ${localStorage.getItem("token")}` },
+        });
+        setUserProfile(response.data);
+        console.log(response.data);
+      } catch (error) {
+        setError(error);
+      }
+    };
+    fetchUserProfile();
+  }, []);
 
   const navigate = useNavigate();
   const handleClick = () => {
@@ -58,8 +75,18 @@ function Home() {
       <Menu />
       <div className={styles.mainHome}>
         <div className={styles.welcomeFlex}>
-          <img className={styles.imageWelcome} src="https://pm1.aminoapps.com/6306/d35b477fa479f3922c3bc08b414ac54a8d92c381_00.jpg"></img>
-          <h5>Bem vindo, {user}!</h5>
+          <img
+            className={styles.imageWelcome}
+            src={userProfile?.imagem ? userProfile.imagem : "./userdefault.jpg"}
+            alt="Imagem de Profile"
+          ></img>
+          <h5>
+            Bem vindo,{" "}
+            {userProfile?.nome_personalizado
+              ? userProfile.nome_personalizado
+              : user}
+            !
+          </h5>
         </div>
         <div className={styles.homeGrid}>
           <h3>Repositórios</h3>

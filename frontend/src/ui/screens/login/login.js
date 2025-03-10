@@ -45,11 +45,11 @@ function Login() {
         <h1 className={styles.title}>Gerenciador de vídeos de IA</h1>
         <form onSubmit={handleSubmit}>
           <div className={styles.inputGroup}>
-            <label htmlFor="email">Email or Username</label>
+            <label htmlFor="email">Username</label>
             <input
               type="text"
               id="email"
-              placeholder="Your email or username"
+              placeholder="Your username"
               value={username}
               onChange={(e) => setUsername(e.target.value)} // Atualiza o estado do nome de usuário conforme o usuário digita
             />

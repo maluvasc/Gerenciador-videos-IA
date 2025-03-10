@@ -3,6 +3,14 @@ from django.contrib.auth.models import User
 
 # Onde você define as tabelas do banco de dados como classes Python.
 
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
+    nome_personalizado = models.CharField(max_length=100, blank=True)
+    imagem = models.ImageField(upload_to='profile_images/', null=True, blank=True)
+
+    def __str__(self):
+        return self.user.username
+    
 class AnaliseVideo(models.Model):
     titulo = models.CharField(max_length=70)
     data_analise = models.DateTimeField("data da análise", auto_now_add=True)
