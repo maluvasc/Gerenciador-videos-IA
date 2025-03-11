@@ -26,10 +26,6 @@ function Repository() {
       <div className={styles.mainRepository}>
         <div className={styles.repoGrid}>
             <input type='text' className={styles.searchbar} placeholder='Procure um vídeo...'></input>
-            <div className={styles.repoFlex}>
-                <FiSliders style={{width: '30px', height: '30px', cursor: 'pointer'}}/>
-                <FiTrash2 style={{width: '30px', height: '30px', cursor: 'pointer'}}/>
-            </div>
         </div>
       </div>
       <div className={styles.line}></div>

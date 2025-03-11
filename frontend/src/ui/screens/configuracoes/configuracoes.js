@@ -35,6 +35,7 @@ function Configuracoes() {
       });
 
       await api.put("app/user/update/", { email }); // Apenas email
+      alert("Informações atualizadas com sucesso!");
     } catch (error) {
       console.log(error.response); // Ver erro no console
       setErrors(error.response?.data || { general: "Erro inesperado." });

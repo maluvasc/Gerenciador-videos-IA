@@ -11,13 +11,6 @@
     justify-content: space-between;
 }
 
-.repoFlex {
-    display: flex;
-    flex-direction: row;
-    gap: 50px;
-    margin-right: 10vh;
-}
-
 #imageRepository {
     width: 70px;
     height: 70px;
@@ -48,6 +41,7 @@
     border-radius: 5px;
     height: 40px;
     padding: 10px;
+    margin-left: 30px;
     border: none;
     align-self: center;
 }

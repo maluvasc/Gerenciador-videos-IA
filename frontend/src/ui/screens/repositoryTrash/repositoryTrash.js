@@ -45,7 +45,7 @@ function RepositoryTrash() {
         <div className={styles.repoGrid}>
           <FiArrowLeftCircle
             className={styles.iconBack}
-            style={{ width: "30px", height: "30px", cursor: "pointer" }}
+            style={{ minWidth: "30px", minHeight: "30px", cursor: "pointer" }}
             onClick={handleClick}
           />
           <div className={styles.repoFlex}>
@@ -65,9 +65,6 @@ function RepositoryTrash() {
             className={styles.searchbar}
             placeholder="Procure um vídeo..."
           ></input>
-          <FiSliders
-            style={{ width: "30px", height: "30px", cursor: "pointer" }}
-          />
           <div className={styles.flexButton}>
             <button className={styles.buttonEsvaziar}>Esvaziar Lixeira</button>
             <button className={styles.buttonRestaurar}>

@@ -143,7 +143,7 @@ function UpdateRepository() {
           <div className={styles.iconH1Flex}>
             <FiArrowLeftCircle
               className={styles.iconBack}
-              style={{ width: "30px", height: "30px", cursor: "pointer" }}
+              style={{ minWidth: "30px", minHeight: "30px", cursor: "pointer" }}
               onClick={handleClickHome}
             />
             <h1 className={styles.h1UpdateRepository}>
@@ -181,12 +181,6 @@ function UpdateRepository() {
           </div>
           <div className={styles.line2}></div>
           <div className={styles.privateRepositoryInput}>
-          </div>
-          <div className={styles.collaboratorsInput}>
-            <label>Colaboradores</label>
-            <select name="collaborators" id="collaborators">
-              <option>{console.log(collaborators)}</option>
-            </select>
           </div>
           <div className={styles.gridButtons}>
             <form onSubmit={handleSubmit}>

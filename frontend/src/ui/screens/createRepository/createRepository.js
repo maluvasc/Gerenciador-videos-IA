@@ -91,7 +91,7 @@ function CreateRepository() {
           <div className={styles.iconH1Flex}>
             <FiArrowLeftCircle
               className={styles.iconBack}
-              style={{ width: "30px", height: "30px", cursor: "pointer" }}
+              style={{ minWidth: "30px", minHeight: "30px", cursor: "pointer" }}
               onClick={handleClickHome}
             />
             <h1 className={styles.h1UpdateRepository}>
@@ -128,26 +128,8 @@ function CreateRepository() {
             />
           </div>
           <div className={styles.line2}></div>
-          <div className={styles.privateRepositoryInput}>
-            <input
-              type="checkbox"
-              id="repositoryPrivate"
-              value={repositoryPrivate}
-              className={styles.inputInformationCheckbox}
-              onChange={(e) => {
-                setRepositoryPrivate(e.target.checked);
-              }}
-            />
-            <p>Repositório privado?</p>
-          </div>
-          <div className={styles.collaboratorsInput}>
-            <label>Colaboradores</label>
-            <select name="collaborators" id="collaborators">
-              <option>Escolha colaboradores</option>
-            </select>
-          </div>
           <div className={styles.alertTextGroup}>
-            <FiAlertCircle />
+            <FiAlertCircle style={{minWidth: "30px", minHeight: "30px"}} />
             <p>Você está criando um repositório em sua conta pessoal</p>
           </div>
           <div className={styles.line3}></div>

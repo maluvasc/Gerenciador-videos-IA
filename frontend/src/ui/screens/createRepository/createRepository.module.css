@@ -90,8 +90,8 @@
   grid-area: alerta;
   grid-column: 1;
   display: flex;
-  align-items: center;
-  gap: 5px;
+  align-items: normal;
+  gap: 10px;
 }
 
 .buttonCreateRepository {

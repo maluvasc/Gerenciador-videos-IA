@@ -1,15 +1,19 @@
 import React, { useEffect, useState, useRef } from "react";
-import { useParams, useLocation } from "react-router-dom";
+import { useParams, useLocation, useNavigate } from "react-router-dom";
 import api from "../../../api";
 import styles from "./videoPage.module.css";
 import Menu from "../../components/menu/menu";
 import ReactPlayer from "react-player";
+import { FiArrowLeftCircle } from "react-icons/fi";
 
 function VideoPage() {
   const { id } = useParams();
+  const { state } = useLocation();
+  const [idRepo, setIdRepo] = useState(state?.id);
   const [videoUrl, setVideoUrl] = useState("");
   const [videoInfo, setVideoInfo] = useState({}); // Add state for video information
   const hasFetchedVideo = useRef(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchVideo = async () => {
@@ -46,11 +50,22 @@ function VideoPage() {
     fetchVideo();
   }, [id]);
 
+  const handleClick = () => {
+    navigate(`/repository/${idRepo}`);
+  };
+
   return (
     <>
       <Menu />
       <div className={styles.videoContainer}>
-        <h3>Detalhes do Vídeo</h3>
+        <div className={styles.repoFlex}>
+          <FiArrowLeftCircle
+            className={styles.iconBack}
+            style={{ minWidth: "30px", minHeight: "30px", cursor: "pointer" }}
+            onClick={handleClick}
+          />
+          <h3>Detalhes do Vídeo</h3>
+        </div>
         <div className={styles.line}></div>
         <div className={styles.videoDetails}>
           <div className={styles.videoThumbnail}>

@@ -49,9 +49,6 @@ function Home() {
   const handleClick = () => {
     navigate("/createRepository");
   };
-  const handleClickReports = () => {
-    navigate("/relatorios");
-  };
 
   useEffect(() => {
     const fetchRepositories = async () => {
@@ -107,12 +104,6 @@ function Home() {
                 cursor: "pointer",
               }}
             />
-          </button>
-          <button
-            className={styles.buttonAbrirRelatórios}
-            onClick={handleClickReports}
-          >
-            Abrir relatórios
           </button>
         </div>
       </div>

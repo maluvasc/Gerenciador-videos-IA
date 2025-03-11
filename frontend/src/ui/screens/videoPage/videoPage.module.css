@@ -11,6 +11,14 @@
   width: 90%;
 }
 
+.repoFlex {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 2vh;
+}
+
 .line {
   margin: 0;
   border-top: 1px solid #ccc; 
