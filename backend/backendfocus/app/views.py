@@ -45,6 +45,11 @@ class RepositoriosDoUsuarioList(generics.ListAPIView):
     def get_queryset(self):
         user = self.request.user
         return Repositorio.objects.filter(criador=user)
+
+class AllVideosList(generics.ListAPIView):
+    queryset = Video.objects.all()
+    serializer_class = VideoSerializer
+    permission_classes = [IsAuthenticated]
     
 class RepositorioDetailView(generics.RetrieveAPIView):
     queryset = Repositorio.objects.all()

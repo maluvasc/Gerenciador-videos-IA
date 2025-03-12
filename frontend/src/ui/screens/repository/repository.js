@@ -13,46 +13,77 @@ import api from "../../../api";
 
 function Cards({ videoName, isAnalised, videoUrl, videoId, repoId }) {
   const [thumbnailUrl, setThumbnailUrl] = useState(null);
+  const navigate = useNavigate();
+
   const truncatedName =
     videoName.length > 20 ? videoName.substring(0, 20) + "..." : videoName;
-  const navigate = useNavigate();
+
+    console.log("URL do vídeo:", videoUrl);
 
   const handleVideoClick = () => {
     navigate(`/videoPage/${videoId}/`, { state: { id: repoId } });
   };
 
+  const generateThumbnail = (videoUrl) => {
+    return new Promise((resolve) => {
+      const video = document.createElement("video");
+      video.src = videoUrl;
+      video.crossOrigin = "anonymous";
+      video.currentTime = 1;
+      video.muted = true;
+      video.playsInline = true;
+
+      video.onloadeddata = () => {
+        const canvas = document.createElement("canvas");
+        canvas.width = 160;
+        canvas.height = 90;
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+        resolve(canvas.toDataURL("image/jpeg"));
+      };
+    });
+  };
+
+  useEffect(() => {
+    if (videoUrl) {
+      generateThumbnail(videoUrl).then(setThumbnailUrl);
+    }
+  }, [videoUrl]);
+
   return (
-    <>
-      <div className={styles.videoFlex}>
-        <div className={styles.videoThumbnail} onClick={handleVideoClick}>
+    <div className={styles.videoFlex}>
+      <div className={styles.videoThumbnail} onClick={handleVideoClick}>
+        {thumbnailUrl ? (
           <img
             src={thumbnailUrl}
             alt="Video Thumbnail"
             className={styles.thumbnailImage}
           />
-        </div>
-        <div>
-          <h6
-            style={{
-              cursor: "pointer",
-              maxWidth: "300px",
-              fontSize: "15px",
-              fontStyle: "italic",
-            }}
-          >
-            {truncatedName}
-          </h6>
-          <p
-            style={{
-              color: isAnalised === "Analisado" ? "green" : "red",
-              fontWeight: "bold",
-            }}
-          >
-            {isAnalised}
-          </p>
-        </div>
+        ) : (
+          <p>...</p>
+        )}
       </div>
-    </>
+      <div>
+        <h6
+          style={{
+            cursor: "pointer",
+            maxWidth: "300px",
+            fontSize: "15px",
+            fontStyle: "italic",
+          }}
+        >
+          {truncatedName}
+        </h6>
+        <p
+          style={{
+            color: isAnalised === "Analisado" ? "green" : "red",
+            fontWeight: "bold",
+          }}
+        >
+          {isAnalised}
+        </p>
+      </div>
+    </div>
   );
 }
 
@@ -74,6 +105,10 @@ function Repository() {
         });
         setRepository(response.data);
         setVideos(response.data.videos);
+
+        console.log("Dados da API:", response.data);
+        console.log("Lista de vídeos:", response.data.videos);
+
       } catch (error) {
         setError(error);
       } finally {
@@ -192,7 +227,7 @@ function Repository() {
               key={video.id}
               videoName={video.titulo}
               isAnalised={video.analise ? "Analisado" : "Não analisado"}
-              videoUrl={video.url}
+              videoUrl={video.file}
               videoId={video.id}
               repoId={repository.id}
             />
