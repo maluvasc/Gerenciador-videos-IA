@@ -120,7 +120,7 @@ function Repository() {
               isAnalised={video.analise ? "Analisado" : "Não analisado"}
               videoUrl={video.file}
               videoId={video.id}
-              repoId={9}
+              repoId={null}
             />
           ))}
       </div>

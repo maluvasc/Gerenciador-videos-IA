@@ -51,7 +51,11 @@ function VideoPage() {
   }, [id]);
 
   const handleClick = () => {
-    navigate(`/repository/${idRepo}`);
+    if(idRepo != null) { 
+      navigate(`/repository/${idRepo}`);
+    } else {
+      navigate(`/ultimasAnalises`)
+    }
   };
 
   return (

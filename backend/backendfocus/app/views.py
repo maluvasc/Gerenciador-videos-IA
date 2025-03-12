@@ -88,6 +88,14 @@ class RepositorioUpdateView(generics.UpdateAPIView):
         user = self.request.user
         return Repositorio.objects.filter(criador=user)
 
+class RepositoriosDoUsuarioList(generics.ListAPIView):
+    serializer_class = RepositorioSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        return Repositorio.objects.filter(criador=user)
+
 class VideoUploadView(APIView):
     parser_classes = [MultiPartParser, FormParser]
     permission_classes = [IsAuthenticated]
