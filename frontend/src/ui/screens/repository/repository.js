@@ -12,47 +12,54 @@ import { useNavigate, useParams } from "react-router-dom";
 import api from "../../../api";
 
 function Cards({ videoName, isAnalised, videoUrl, videoId, repoId }) {
-  const [thumbnailUrl, setThumbnailUrl] = useState(null);
-  const truncatedName =
-    videoName.length > 20 ? videoName.substring(0, 20) + "..." : videoName;
   const navigate = useNavigate();
+  const [thumbnail, setThumbnail] = useState("");
+  const truncatedName =
+    videoName.length > 15 ? videoName.substring(0, 15) + "..." : videoName;
+
+  useEffect(() => {
+    if (!videoUrl) return;
+
+    const generateThumbnail = () => {
+      const video = document.createElement("video");
+      video.src = videoUrl;
+      video.crossOrigin = "anonymous";
+      video.muted = true;
+      video.playsInline = true;
+      
+      video.addEventListener("loadeddata", () => {
+        video.currentTime = 2;
+      });
+      
+      video.addEventListener("seeked", () => {
+        const canvas = document.createElement("canvas");
+        canvas.width = 160;
+        canvas.height = 90;
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+        setThumbnail(canvas.toDataURL("image/jpeg"));
+      });
+    };
+
+    generateThumbnail();
+  }, [videoUrl]);
 
   const handleVideoClick = () => {
     navigate(`/videoPage/${videoId}/`, { state: { id: repoId } });
   };
 
   return (
-    <>
-      <div className={styles.videoFlex}>
-        <div className={styles.videoThumbnail} onClick={handleVideoClick}>
-          <img
-            src={thumbnailUrl}
-            alt="Video Thumbnail"
-            className={styles.thumbnailImage}
-          />
-        </div>
-        <div>
-          <h6
-            style={{
-              cursor: "pointer",
-              maxWidth: "300px",
-              fontSize: "15px",
-              fontStyle: "italic",
-            }}
-          >
-            {truncatedName}
-          </h6>
-          <p
-            style={{
-              color: isAnalised === "Analisado" ? "green" : "red",
-              fontWeight: "bold",
-            }}
-          >
-            {isAnalised}
-          </p>
-        </div>
+    <div className={styles.videoFlex}>
+      <div className={styles.videoThumbnail} onClick={handleVideoClick}>
+        {thumbnail && <img src={thumbnail} alt="Video Thumbnail" />}
       </div>
-    </>
+      <div>
+        <h6 className={styles.videoTitle}>{truncatedName}</h6>
+        <p className={isAnalised === "Analisado" ? styles.analised : styles.notAnalised}>
+          {isAnalised}
+        </p>
+      </div>
+    </div>
   );
 }
 
@@ -74,6 +81,10 @@ function Repository() {
         });
         setRepository(response.data);
         setVideos(response.data.videos);
+
+        console.log("Dados da API:", response.data);
+        console.log("Lista de vídeos:", response.data.videos);
+
       } catch (error) {
         setError(error);
       } finally {
@@ -192,7 +203,7 @@ function Repository() {
               key={video.id}
               videoName={video.titulo}
               isAnalised={video.analise ? "Analisado" : "Não analisado"}
-              videoUrl={video.url}
+              videoUrl={video.file}
               videoId={video.id}
               repoId={repository.id}
             />
