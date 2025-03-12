@@ -91,11 +91,11 @@ class RepositorioUpdateView(generics.UpdateAPIView):
 class VideoUploadView(APIView):
     parser_classes = [MultiPartParser, FormParser]
     permission_classes = [IsAuthenticated]
-
+  
     def post(self, request):
         files = request.FILES.getlist('file')
         repositorio_id = request.data.get('repositorio')
-
+        print(request.data)
         if not repositorio_id:
             return Response({"error": "O campo 'repositorio' é obrigatório."}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -112,11 +112,12 @@ class VideoUploadView(APIView):
                 'descricao': request.data.get('descricao', ''),
                 'file': file,
                 'repositorio': repositorio.id,
-                'autor': request.user.id
+                'autor': request.user.id,
+                'naLixeira': False
             }
             serializer = VideoSerializer(data=data)
             if serializer.is_valid():
-                video = serializer.save(autor=request.user)
+                video = serializer.save(autor=request.user, naLixeira=False)
                 response_data.append(VideoSerializer(video).data)
                 print(video.file.path)
             else:

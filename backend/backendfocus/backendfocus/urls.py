@@ -1,9 +1,10 @@
 from django.contrib import admin
+from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-from app.views import home, CreateUserView, ListUsersView, EditUserView, ChangePasswordUserView, DeleteAccountView, UserProfileUpdateView, UserProfileView
+from app.views import home, CreateUserView, ListUsersView, EditUserView, ChangePasswordUserView, DeleteAccountView, UserProfileUpdateView, UserProfileView, VideoUploadView
 
 # Roteamento central do projeto. Ele conecta rotas de aplicativos (como App/urls.py) ao projeto principal.
 
@@ -21,6 +22,7 @@ urlpatterns = [
     path('app/token/', TokenObtainPairView.as_view(), name='get_token'), # Adicionando a URL para obter o token de acesso
     path('app/token/refresh/', TokenRefreshView.as_view(), name='refresh_token'), # Adicionando a URL para atualizar o token de acesso
     path('app-auth/', include('rest_framework.urls')),
+    path('app/videos/upload/', VideoUploadView.as_view(), name="video_upload"),
     path('', home, name='home'),  # Adicionando a URL para a página inicial
 ]
 

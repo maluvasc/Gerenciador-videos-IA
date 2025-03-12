@@ -24,7 +24,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
 class VideoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Video
-        fields = ['id', 'titulo', 'descricao', 'file', 'data_upload', 'analise', 'autor', 'repositorio']
+        fields = ['id', 'titulo', 'descricao', 'file', 'data_upload', 'analise', 'autor', 'repositorio', 'naLixeira']
         read_only_fields = ['autor']
 
 class RepositorioSerializer(serializers.ModelSerializer):
