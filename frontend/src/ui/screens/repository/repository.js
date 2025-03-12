@@ -12,74 +12,50 @@ import { useNavigate, useParams } from "react-router-dom";
 import api from "../../../api";
 
 function Cards({ videoName, isAnalised, videoUrl, videoId, repoId }) {
-  const [thumbnailUrl, setThumbnailUrl] = useState(null);
   const navigate = useNavigate();
-
+  const [thumbnail, setThumbnail] = useState("");
   const truncatedName =
-    videoName.length > 20 ? videoName.substring(0, 20) + "..." : videoName;
+    videoName.length > 15 ? videoName.substring(0, 15) + "..." : videoName;
 
-    console.log("URL do vídeo:", videoUrl);
+  useEffect(() => {
+    if (!videoUrl) return;
 
-  const handleVideoClick = () => {
-    navigate(`/videoPage/${videoId}/`, { state: { id: repoId } });
-  };
-
-  const generateThumbnail = (videoUrl) => {
-    return new Promise((resolve) => {
+    const generateThumbnail = () => {
       const video = document.createElement("video");
       video.src = videoUrl;
       video.crossOrigin = "anonymous";
-      video.currentTime = 1;
       video.muted = true;
       video.playsInline = true;
-
-      video.onloadeddata = () => {
+      
+      video.addEventListener("loadeddata", () => {
+        video.currentTime = 2;
+      });
+      
+      video.addEventListener("seeked", () => {
         const canvas = document.createElement("canvas");
         canvas.width = 160;
         canvas.height = 90;
         const ctx = canvas.getContext("2d");
         ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-        resolve(canvas.toDataURL("image/jpeg"));
-      };
-    });
-  };
+        setThumbnail(canvas.toDataURL("image/jpeg"));
+      });
+    };
 
-  useEffect(() => {
-    if (videoUrl) {
-      generateThumbnail(videoUrl).then(setThumbnailUrl);
-    }
+    generateThumbnail();
   }, [videoUrl]);
+
+  const handleVideoClick = () => {
+    navigate(`/videoPage/${videoId}/`, { state: { id: repoId } });
+  };
 
   return (
     <div className={styles.videoFlex}>
       <div className={styles.videoThumbnail} onClick={handleVideoClick}>
-        {thumbnailUrl ? (
-          <img
-            src={thumbnailUrl}
-            alt="Video Thumbnail"
-            className={styles.thumbnailImage}
-          />
-        ) : (
-          <p>...</p>
-        )}
+        {thumbnail && <img src={thumbnail} alt="Video Thumbnail" />}
       </div>
       <div>
-        <h6
-          style={{
-            cursor: "pointer",
-            maxWidth: "300px",
-            fontSize: "15px",
-            fontStyle: "italic",
-          }}
-        >
-          {truncatedName}
-        </h6>
-        <p
-          style={{
-            color: isAnalised === "Analisado" ? "green" : "red",
-            fontWeight: "bold",
-          }}
-        >
+        <h6 className={styles.videoTitle}>{truncatedName}</h6>
+        <p className={isAnalised === "Analisado" ? styles.analised : styles.notAnalised}>
           {isAnalised}
         </p>
       </div>
