@@ -12,10 +12,32 @@ import { useNavigate, useParams } from "react-router-dom";
 import api from "../../../api";
 
 function Cards({ videoName, isAnalised, videoUrl, videoId, repoId }) {
-  const [thumbnailUrl, setThumbnailUrl] = useState(null);
   const truncatedName =
-    videoName.length > 20 ? videoName.substring(0, 20) + "..." : videoName;
+    videoName.length > 15 ? videoName.substring(0, 15) + "..." : videoName;
   const navigate = useNavigate();
+  const videoRef = useRef(null);
+  const [thumbnail, setThumbnail] = useState("");
+
+  useEffect(() => {
+    const generateThumbnail = () => {
+      const video = document.createElement("video");
+      video.src = videoUrl;
+      video.crossOrigin = "anonymous";
+      video.addEventListener("loadeddata", () => {
+        video.currentTime = 2;
+      });
+      video.addEventListener("seeked", () => {
+        const canvas = document.createElement("canvas");
+        canvas.width = 175;
+        canvas.height = 100;
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+        setThumbnail(canvas.toDataURL("image/png"));
+      });
+    };
+
+    generateThumbnail();
+  }, [videoUrl]);
 
   const handleVideoClick = () => {
     navigate(`/videoPage/${videoId}/`, { state: { id: repoId } });
@@ -25,11 +47,7 @@ function Cards({ videoName, isAnalised, videoUrl, videoId, repoId }) {
     <>
       <div className={styles.videoFlex}>
         <div className={styles.videoThumbnail} onClick={handleVideoClick}>
-          <img
-            src={thumbnailUrl}
-            alt="Video Thumbnail"
-            className={styles.thumbnailImage}
-          />
+          {thumbnail && <img src={thumbnail} alt="Video Thumbnail" />}
         </div>
         <div>
           <h6
@@ -192,7 +210,7 @@ function Repository() {
               key={video.id}
               videoName={video.titulo}
               isAnalised={video.analise ? "Analisado" : "Não analisado"}
-              videoUrl={video.url}
+              videoUrl={video.file}
               videoId={video.id}
               repoId={repository.id}
             />
