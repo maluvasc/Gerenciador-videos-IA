@@ -30,6 +30,7 @@ class Video(models.Model):
     analise = models.ForeignKey('AnaliseVideo', on_delete=models.CASCADE, null=True, blank=True)
     autor = models.ForeignKey(User, on_delete=models.CASCADE, related_name='videos')
     repositorio = models.ForeignKey('Repositorio', on_delete=models.CASCADE, related_name='videos')
+    naLixeira = models.BooleanField(default=False)
 
     def __str__(self):
         return self.titulo
