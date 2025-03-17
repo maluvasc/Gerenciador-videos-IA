@@ -19,7 +19,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "dev": "HOST=0.0.0.0 react-scripts start",
+    "dev": "HOST=0.0.0.0 react-scripts start"
   },
   "eslintConfig": {
     "extends": [
