@@ -8,7 +8,7 @@ import {
   FiArrowLeftCircle,
   FiUpload,
 } from "react-icons/fi";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import api from "../../../api";
 
 function Cards({ videoName, isAnalised, videoUrl, videoId, repoId }) {
@@ -65,6 +65,7 @@ function Cards({ videoName, isAnalised, videoUrl, videoId, repoId }) {
 
 function Repository() {
   const { id } = useParams();
+  const { state } = useLocation();
   const [repository, setRepository] = useState(null);
   const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -101,11 +102,11 @@ function Repository() {
   };
 
   const handleClickSettings = () => {
-    navigate("/updateRepository");
+    navigate("/updateRepository", { state: { id: id } });
   };
 
   const handleClickTrash = () => {
-    navigate("/repositoryTrash");
+    navigate("/repositoryTrash", { state: { id: id } });
   };
 
   const handleFileChange = async (e) => {
