@@ -3,7 +3,7 @@ import { ACCESS_TOKEN } from "./constants";
 
 // Cria uma instância do axios com a URL base do backend para realizar as requisições HTTP
 const api = axios.create({
-  baseURL: "http://127.0.0.1:8000",
+  baseURL: "http://3.145.66.167:8000/",
 });
 
 // Adiciona o token de acesso à requisições, caso ele exista no armazenamento local do navegador
