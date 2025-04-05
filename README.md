@@ -1,8 +1,8 @@
-# Gerenciador de Vídeos com Detecção de Violência por IA
+# Gerenciador de Vídeos
 
 ## Visão Geral
 
-Este é um sistema de gerenciamento de vídeos com análise automatizada por Inteligência Artificial (IA), desenvolvido com Django no backend e JavaScript/CSS no frontend. O sistema permite que usuários enviem vídeos para repositórios, que podem vir a servir para aplicações com análise de IA.
+Este é um sistema de gerenciamento de vídeos com análise automatizada, desenvolvido com Django no backend e JavaScript/CSS no frontend. O sistema permite que usuários enviem vídeos para repositórios, que podem vir a servir para aplicações com análise de IA.
 
 ## Funcionalidades
 
